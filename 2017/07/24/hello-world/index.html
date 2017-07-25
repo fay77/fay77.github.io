@@ -433,7 +433,7 @@
 <li>Scoket</li>
 </ul>
 <p>这里面最有特色的就是<strong>Binder</strong> </p>
-<h2 id="2-Android中的多进程模式"><a href="#2-Android中的多进程模式" class="headerlink" title="2.Android中的多进程模式"></a>2.Android中的多进程模式</h2><h4 id="2-1开启多线程模式"><a href="#2-1开启多线程模式" class="headerlink" title="2.1开启多线程模式"></a>2.1开启多线程模式</h4><p>　　Android中开启多线程模式非常的简单，只要在四大组件(Activity、Service、Receive、ContentProvider)的<code>AndroidMeniFest</code>中指定<code>android:process</code>属性。</p>
+<h2 id="2-Android中的多进程模式"><a href="#2-Android中的多进程模式" class="headerlink" title="2.Android中的多进程模式"></a>2.Android中的多进程模式</h2><h4 id="2-1开启多进程模式"><a href="#2-1开启多进程模式" class="headerlink" title="2.1开启多进程模式"></a>2.1开启多进程模式</h4><p>　　Android中开启多线程模式非常的简单，只要在四大组件(Activity、Service、Receive、ContentProvider)的<code>AndroidMeniFest</code>中指定<code>android:process</code>属性。</p>
 <pre><code>android:process=&quot;com.ryg.chapter_2.remote&quot;
 android:process=&quot;:remote&quot;
 </code></pre><p>　　上面两种写法是有区别的：</p>
@@ -444,11 +444,28 @@ android:process=&quot;:remote&quot;
 <li><code>andoid:process=&quot;com.ryg.chapter_2.remote&quot;</code>这是完整的写法，该写法的进程属于全局进程，其他应用可以通过共享<code>ShareUid</code>方式和它跑在同一个进程中。</li>
 </ol>
 <hr>
-<h4 id="2-2-多进程模式的运行机制"><a href="#2-2-多进程模式的运行机制" class="headerlink" title="2.2 多进程模式的运行机制"></a>2.2 多进程模式的运行机制</h4><p>　　一句话形容多进程：</p>
+<h4 id="2-2-多进程模式的运行机制"><a href="#2-2-多进程模式的运行机制" class="headerlink" title="2.2 多进程模式的运行机制"></a>2.2 多进程模式的运行机制</h4><p>一句话形容多进程：</p>
 <blockquote>
 <p>当开启了多进程以后，各种奇怪的现象都出现了</p>
 </blockquote>
-
+<p>　　分析：我们知道Android会为每个进程分配一个独立的虚拟机，不同的虚拟机在内存分配上有不同的地址控件，这就导致在不同虚拟机中访问同一个类的对象产生多份副本。</p>
+<p>多进程会造成以下的问题：</p>
+<ul>
+<li>静态成员和单例模式完全失效</li>
+<li>线程同步机制完全失效</li>
+<li>SharedPreferences的可靠性下降</li>
+<li>Application会多次创建</li>
+</ul>
+<hr>
+<p>以上是多进程所带来的问题，但是我们不能因为多进程有很多问题就不去正视他，为了解决这个问题，系统提供了很多跨进程通信方法：</p>
+<ul>
+<li>通过<strong>Intent</strong>来传递数据</li>
+<li>共享文件和<strong>sharedPerences</strong></li>
+<li>基于<strong>Binder</strong>的<strong>Message</strong>和<strong>AIDL</strong></li>
+<li><strong>Socket</strong>等等</li>
+</ul>
+<p>为了更好的理解IPC机制，我们先来熟悉一些基础概念，比如：<br><code>Serializable</code><br><code>Paracelabel</code></p>
+<h4 id="2-3IPC基础概念"><a href="#2-3IPC基础概念" class="headerlink" title="2.3IPC基础概念"></a>2.3IPC基础概念</h4>
         </div>
     
 </div>
