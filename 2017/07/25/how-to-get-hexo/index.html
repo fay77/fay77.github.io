@@ -1,4 +1,57 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>GitHub + Hexo搭建个人博客 - Gao Feng</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">GitHub + Hexo搭建个人博客</h1><ul class="meta"><li><i class="icon icon-author"></i>Feng Gao</li><li><i class="icon icon-clock"></i>0 Minutes</li><li><i class="icon icon-calendar"></i>2017年7月25日</li></ul></div></div><div class="article-content" style="max-width:800px"></div><div class="article-meta" style="max-width:800px"></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cj5jbhv2f0000gstctvpfeqw8" data-title="GitHub + Hexo搭建个人博客" data-url="http://yoursite.com/2017/07/25/how-to-get-hexo/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>GitHub + Hexo搭建个人博客 - Gao Feng</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">GitHub + Hexo搭建个人博客</h1><ul class="meta"><li><i class="icon icon-author"></i>Feng Gao</li><li><i class="icon icon-clock"></i>3 Minutes</li><li><i class="icon icon-calendar"></i>2017年7月25日</li></ul></div></div><div class="article-content" style="max-width:800px"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>假设你已经拥有了GitHub以及ssh认证等，去gitHub新建一个仓库，仓库名必须为  <code>yourusername.github.io</code></p>
+<p>如：</p>
+<p><img src="http://i.imgur.com/1bvOqTh.png" alt=""></p>
+<p>创建完了之后先不用管他。</p>
+<h2 id="正式安装Hexo"><a href="#正式安装Hexo" class="headerlink" title="正式安装Hexo"></a>正式安装Hexo</h2><p>在安装Hexo之前需要安装Node.js，直接去官网download无脑安装即可。这里我们主要说Hexo。</p>
+<p>首先创建一个文件夹存放hexo配置，如Blog。</p>
+<p><strong>记住在执行hexo指令前，必须是在刚才存放hexo配置的文件目录下，否则命令无效，所依我们一路cd 到刚才的Blog文件夹下</strong></p>
+<p>执行如下命令安装Hexo：</p>
+<pre><code>sudo npm install -g hexo
+</code></pre><p>初始化然后，执行init命令初始化hexo,命令：</p>
+<pre><code>hexo init
+</code></pre><p>hexo的指令非常少而且简单，现在我们来测下hexo是否成功安装</p>
+<pre><code>hexo g
+</code></pre><p>本地启动<br>我们来预览调试<br>    hexo s<br>浏览器输入 <code>http://localhost:4000</code></p>
+<h4 id="现在回到我们的github"><a href="#现在回到我们的github" class="headerlink" title="现在回到我们的github"></a>现在回到我们的github</h4><ol>
+<li>找到你的仓库，<code>yourusername.github.io</code></li>
+<li>点击仓库的<code>SETTING</code>选项卡</li>
+<li>下拉到<code>GitHub Pages</code>选项中，点击如下图按钮<code>Choose theme</code></li>
+</ol>
+<p><img src="http://i.imgur.com/xDRJvHT.png" alt=""></p>
+<p>点击之后随便选个theme，随后关闭我们的GitHub.</p>
+<h2 id="配置Hexo"><a href="#配置Hexo" class="headerlink" title="配置Hexo"></a>配置Hexo</h2><p>进入我们的Blog文件夹，这里的根目录下有个<code>_config.yml</code>文件，这个叫做<strong>站点配置文件</strong>可以理解成全局的配置文件。</p>
+<p>现在来设置这个配置文件</p>
+<p>这里重点修改内容是整个配置文件的最下面的这么一段：</p>
+<pre><code>deploy:
+
+ type: git
+
+ repo: git@github.com:fay77/fay77.github.io.git
+
+ branch: master
+</code></pre><p><strong>需要注意的是所有的冒号后面都要加个空格，否则无效，repo后面跟的是ssh地址，http地址会有问题</strong></p>
+<p>然后执行命令：</p>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre><p>到此为止基本配置都结束了，我们开始部署到gitHub上，执行命令：</p>
+<pre><code>hexo deploy
+</code></pre><p>然后再浏览器中输入<a href="http://fay77.github.io/" target="_blank" rel="external">http://fay77.github.io/</a> 就行了，我的github的账户叫fay77,把这个改成你github的账户名就行了</p>
+<h3 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h3><p>每次部署都按以下三步来进行</p>
+<ul>
+<li><code>hexo clean</code></li>
+<li><code>hexo g</code></li>
+<li><code>hexo d</code></li>
+</ul>
+<h2 id="域名绑定"><a href="#域名绑定" class="headerlink" title="域名绑定"></a>域名绑定</h2><p>以上步骤生成的博客地址均以 <code>xxx.github.io</code>为地址的，你也可以更改这个地址，绑定你的域名。</p>
+<h3 id="购买域名"><a href="#购买域名" class="headerlink" title="购买域名"></a>购买域名</h3><p>我用的是dnspod，进入搜索你想要的域名，然后支付。这里很简单不多说。</p>
+<p>点击  <strong>解析</strong> 进入</p>
+<p><img src="http://i.imgur.com/ez4ypru.png" alt=""></p>
+<p>点击  添加记录 选A</p>
+<p><img src="http://i.imgur.com/LCTN8zm.png" alt=""></p>
+<p>这里的ping需要打开cmd执行命令<br>    ping -t fay77github.io<br>得到一串ip地址，复制并且粘贴到记录值一栏。 点击确定。</p>
+<p>再次点击添加记录 选CNAME<br>记录值这次填你的github.io那个地址就可以了。</p>
+<h2 id="GitHubPage绑定你的域名"><a href="#GitHubPage绑定你的域名" class="headerlink" title="GitHubPage绑定你的域名"></a>GitHubPage绑定你的域名</h2><p>在blog文件下<br><img src="http://i.imgur.com/R6M0kTM.png" alt=""><br>新建CNAME，里面填入你的域名。 然后执行命令<br>    hexo g<br>    hexo d</p>
+<p>大功告成。 访问你的域名就可以了。</p>
+</div><div class="article-meta" style="max-width:800px"></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cj5jcydd70001d0tcg81uu3tw" data-title="GitHub + Hexo搭建个人博客" data-url="http://yoursite.com/2017/07/25/how-to-get-hexo/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
 var duoshuoQuery = {short_name: siteName};
 (function() {
   var ds = document.createElement('script');
