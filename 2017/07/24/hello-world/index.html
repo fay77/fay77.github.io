@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>Android中的IPC机制 - Gao Feng</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">Android中的IPC机制</h1><ul class="meta"><li><i class="icon icon-author"></i>Feng Gao</li><li><i class="icon icon-clock"></i>2 Minutes</li><li><i class="icon icon-calendar"></i>2017年7月24日</li></ul></div></div><div class="article-content" style="max-width:800px"><h2 id="1-IPC简介"><a href="#1-IPC简介" class="headerlink" title="1.IPC简介"></a>1.IPC简介</h2><p>IPC含义为进程间通信或者跨进程通信，是指两个进程之间进行数据交换的过程 , Android中IPC通信的方式有很多，例如:</p>
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>Android中的IPC机制 - Gao Feng</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">Android中的IPC机制</h1><ul class="meta"><li><i class="icon icon-author"></i>Feng Gao</li><li><i class="icon icon-clock"></i>5 Minutes</li><li><i class="icon icon-calendar"></i>2017年7月24日</li></ul></div></div><div class="article-content" style="max-width:800px"><h2 id="1-IPC简介"><a href="#1-IPC简介" class="headerlink" title="1.IPC简介"></a>1.IPC简介</h2><p>IPC含义为进程间通信或者跨进程通信，是指两个进程之间进行数据交换的过程 , Android中IPC通信的方式有很多，例如:</p>
 <ul>
 <li>Binder</li>
 <li>Scoket</li>
@@ -36,7 +36,109 @@ android:process=&quot;:remote&quot;
 <li><strong>Socket</strong>等等</li>
 </ul>
 <p>为了更好的理解IPC机制，我们先来熟悉一些基础概念，比如：<br><code>Serializable</code><br><code>Paracelabel</code></p>
-<h4 id="2-3IPC基础概念"><a href="#2-3IPC基础概念" class="headerlink" title="2.3IPC基础概念"></a>2.3IPC基础概念</h4></div><div class="article-meta" style="max-width:800px"></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cj5jh06yl0000cotca28zpv2r" data-title="Android中的IPC机制" data-url="http://yoursite.com/2017/07/24/hello-world/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
+<h4 id="2-3-1-Serializable接口"><a href="#2-3-1-Serializable接口" class="headerlink" title="2.3.1 Serializable接口"></a>2.3.1 Serializable接口</h4><p><code>Serializable</code>实现起来非常简单，几乎所有的工作都是系统完成的。如下代码：</p>
+<pre><code>public class User implements Serializable {
+private static final long serialVersionUID = 321112538042654820L;
+public int userId;
+public String userName;
+public boolean isMale;
+</code></pre><p>}<br>使用AS的同学会发现<code>serialVersionUID</code>无法自动提示，这是因为Android Studio设置中忽略了这个，需要重新设置下</p>
+<ol>
+<li>File–&gt;Settings–&gt;Editor–&gt;Inspections–&gt;Java–&gt;Serialization issues–&gt;Serializable class without ‘serialVersionUID’ 勾选中该选项即可。</li>
+</ol>
+<p><img src="http://i.imgur.com/9Ek0nK3.png" alt=""></p>
+<ol>
+<li>进入实现了Serializable中的类，选中类名，Alt+Enter弹出提示，然后直接导入完成</li>
+</ol>
+<p><strong>如何进行对象的序列号和反序列化呢</strong></p>
+<pre><code> //序列号过程
+   User user = new User(0, &quot;jack&quot;, true);
+   try {
+       ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(&quot;cache.txt&quot;));
+       objectOutputStream.writeObject(user);
+       objectOutputStream.close();
+   } catch (IOException e) {
+       e.printStackTrace();
+   }
+
+
+
+
+//反序列化过程
+   try {
+       ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(&quot;cache.txt&quot;));
+       try {
+           User user1 = (User) inputStream.readObject();
+           inputStream.close();
+       } catch (ClassNotFoundException e) {
+           e.printStackTrace();
+       }
+   } catch (IOException e) {
+       e.printStackTrace();
+   }
+</code></pre><h4 id="2-3-2-Parcelable接口"><a href="#2-3-2-Parcelable接口" class="headerlink" title="2.3.2 Parcelable接口"></a>2.3.2 Parcelable接口</h4><blockquote>
+<p>Parcelable也是一个接口，同样是实现这个接口就可以实现序列化和反序列化。下面是用法：</p>
+</blockquote>
+<pre><code>public class User implements Parcelable {
+public int userId;
+public String userName;
+public boolean isMale;
+public Book mBook;
+
+public User(int userId, String userName, boolean isMale, Book book) {
+    this.userId = userId;
+    this.userName = userName;
+    this.isMale = isMale;
+    mBook = book;
+}
+
+
+protected User(Parcel in) {
+    userId = in.readInt();
+    userName = in.readString();
+    isMale = in.readByte() != 0;
+    mBook = in.readParcelable(Book.class.getClassLoader());
+}
+
+public static final Creator&lt;User&gt; CREATOR = new Creator&lt;User&gt;() {
+    @Override
+    public User createFromParcel(Parcel in) {
+        return new User(in);
+    }
+
+    @Override
+    public User[] newArray(int size) {
+        return new User[size];
+    }
+};
+
+@Override
+public int describeContents() {
+    return 0;
+}
+
+@Override
+public void writeToParcel(Parcel dest, int flags) {
+    dest.writeInt(userId);
+    dest.writeString(userName);
+    dest.writeByte((byte) (isMale ? 1 : 0));
+    dest.writeParcelable(mBook, flags);
+}
+}
+</code></pre><p>所有的工作AS都会有提示只需无脑CTRL ENTER。</p>
+<hr>
+<p>####那么两种序列化之间改如何选取呢？</p>
+<ul>
+<li>Serializable是Java中的序列号接口，使用起来简单但是<strong>开销大</strong></li>
+<li>Parcelable是Android中的序列化方式，因此更适合在Android平台，缺点是使用起来稍微麻烦，但是效率很高。<strong>因此首选<code>Parcelable</code></strong> </li>
+</ul>
+<p>但是在以下两种情况下应选<code>Serializable</code></p>
+<ul>
+<li>将对象序列化到存储设备中</li>
+<li>将对象序列化后通过网络传输</li>
+</ul>
+<p>##2.3.3 Binder</p>
+</div><div class="article-meta" style="max-width:800px"></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cj5jhqxpt0000notctzwjsxaa" data-title="Android中的IPC机制" data-url="http://yoursite.com/2017/07/24/hello-world/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
 var duoshuoQuery = {short_name: siteName};
 (function() {
   var ds = document.createElement('script');
