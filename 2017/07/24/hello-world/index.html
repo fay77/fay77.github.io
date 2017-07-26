@@ -4,15 +4,16 @@
 <li>Scoket</li>
 </ul>
 <p>这里面最有特色的就是<strong>Binder</strong> </p>
-<h2 id="2-Android中的多进程模式"><a href="#2-Android中的多进程模式" class="headerlink" title="2.Android中的多进程模式"></a>2.Android中的多进程模式</h2><h4 id="2-1开启多进程模式"><a href="#2-1开启多进程模式" class="headerlink" title="2.1开启多进程模式"></a>2.1开启多进程模式</h4><p>　　Android中开启多线程模式非常的简单，只要在四大组件(Activity、Service、Receive、ContentProvider)的<code>AndroidMeniFest</code>中指定<code>android:process</code>属性。</p>
+<h2 id="2-Android中的多进程模式"><a href="#2-Android中的多进程模式" class="headerlink" title="2.Android中的多进程模式"></a>2.Android中的多进程模式</h2><a id="more"></a>
+<h4 id="2-1开启多进程模式"><a href="#2-1开启多进程模式" class="headerlink" title="2.1开启多进程模式"></a>2.1开启多进程模式</h4><p>　　Android中开启多线程模式非常的简单，只要在四大组件(Activity、Service、Receive、ContentProvider)的<code>AndroidMeniFest</code>中指定<code>android:process</code>属性。</p>
 <pre><code>android:process=&quot;com.ryg.chapter_2.remote&quot;
 android:process=&quot;:remote&quot;
 </code></pre><p>　　上面两种写法是有区别的：</p>
 <ol>
-<li><code>：</code> 的含义是指在当前线程名前面附加当前的包名，这是一种简写的方法。并且以<code>:</code>开头的进程属于私有进程，其他应用的组件不可以和它跑在同一个进程中。</li>
-</ol>
-<ol>
-<li><code>andoid:process=&quot;com.ryg.chapter_2.remote&quot;</code>这是完整的写法，该写法的进程属于全局进程，其他应用可以通过共享<code>ShareUid</code>方式和它跑在同一个进程中。</li>
+<li><p><code>：</code> 的含义是指在当前线程名前面附加当前的包名，这是一种简写的方法。并且以<code>:</code>开头的进程属于私有进程，其他应用的组件不可以和它跑在同一个进程中。</p>
+</li>
+<li><p><code>andoid:process=&quot;com.ryg.chapter_2.remote&quot;</code>这是完整的写法，该写法的进程属于全局进程，其他应用可以通过共享<code>ShareUid</code>方式和它跑在同一个进程中。</p>
+</li>
 </ol>
 <hr>
 <h4 id="2-2-多进程模式的运行机制"><a href="#2-2-多进程模式的运行机制" class="headerlink" title="2.2 多进程模式的运行机制"></a>2.2 多进程模式的运行机制</h4><p>一句话形容多进程：</p>
@@ -136,7 +137,7 @@ public void writeToParcel(Parcel dest, int flags) {
 <li>将对象序列化到存储设备中</li>
 <li>将对象序列化后通过网络传输</li>
 </ul>
-<h2 id="2-3-3-Binder"><a href="#2-3-3-Binder" class="headerlink" title="2.3.3 Binder"></a>2.3.3 Binder</h2></div><div class="article-meta" style="max-width:800px"></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cj5kax2bn0000w8tcq4yxb1ok" data-title="Android中的IPC机制" data-url="http://yoursite.com/2017/07/24/hello-world/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
+<h2 id="2-3-3-Binder"><a href="#2-3-3-Binder" class="headerlink" title="2.3.3 Binder"></a>2.3.3 Binder</h2></div><div class="article-meta" style="max-width:800px"></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cj5kbe0rn0001o0tc7z2e7oj8" data-title="Android中的IPC机制" data-url="http://yoursite.com/2017/07/24/hello-world/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
 var duoshuoQuery = {short_name: siteName};
 (function() {
   var ds = document.createElement('script');
