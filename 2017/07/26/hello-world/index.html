@@ -94,7 +94,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://i.imgur.com/gcTmPam.jpg">
 <meta property="og:image" content="http://i.imgur.com/9Ek0nK3.png">
-<meta property="og:updated_time" content="2017-07-26T08:13:46.727Z">
+<meta property="og:updated_time" content="2017-07-26T08:28:50.347Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android中的IPC机制">
 <meta name="twitter:image" content="http://i.imgur.com/gcTmPam.jpg">
@@ -405,13 +405,8 @@ android:process=&quot;:remote&quot;
 <li><strong>Socket</strong>等等</li>
 </ul>
 <p>为了更好的理解IPC机制，我们先来熟悉一些基础概念，比如：<br><code>Serializable</code><br><code>Paracelabel</code></p>
-<h4 id="2-3-1-Serializable接口"><a href="#2-3-1-Serializable接口" class="headerlink" title="2.3.1 Serializable接口"></a>2.3.1 Serializable接口</h4><p><code>Serializable</code>实现起来非常简单，几乎所有的工作都是系统完成的。如下代码：</p>
-<pre><code>public class User implements Serializable {
-private static final long serialVersionUID = 321112538042654820L;
-public int userId;
-public String userName;
-public boolean isMale;
-</code></pre><p>}<br>使用AS的同学会发现<code>serialVersionUID</code>无法自动提示，这是因为Android Studio设置中忽略了这个，需要重新设置下</p>
+<h4 id="2-3-1-Serializable接口"><a href="#2-3-1-Serializable接口" class="headerlink" title="2.3.1 Serializable接口"></a>2.3.1 Serializable接口</h4><p><code>Serializable</code>实现起来非常简单，几乎所有的工作都是系统完成的。如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">    public class User implements Serializable &#123;</div><div class="line">    private static final long serialVersionUID = 321112538042654820L;</div><div class="line">    public int userId;</div><div class="line">    public String userName;</div><div class="line">    public boolean isMale;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用AS的同学会发现<code>serialVersionUID</code>无法自动提示，这是因为Android Studio设置中忽略了这个，需要重新设置下</p>
 <ol>
 <li>File–&gt;Settings–&gt;Editor–&gt;Inspections–&gt;Java–&gt;Serialization issues–&gt;Serializable class without ‘serialVersionUID’ 勾选中该选项即可。</li>
 </ol>
@@ -420,81 +415,12 @@ public boolean isMale;
 <li>进入实现了Serializable中的类，选中类名，Alt+Enter弹出提示，然后直接导入完成</li>
 </ol>
 <p><strong>如何进行对象的序列号和反序列化呢</strong></p>
-<pre><code> //序列号过程
-   User user = new User(0, &quot;jack&quot;, true);
-   try {
-       ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(&quot;cache.txt&quot;));
-       objectOutputStream.writeObject(user);
-       objectOutputStream.close();
-   } catch (IOException e) {
-       e.printStackTrace();
-   }
-
-
-
-
-//反序列化过程
-   try {
-       ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(&quot;cache.txt&quot;));
-       try {
-           User user1 = (User) inputStream.readObject();
-           inputStream.close();
-       } catch (ClassNotFoundException e) {
-           e.printStackTrace();
-       }
-   } catch (IOException e) {
-       e.printStackTrace();
-   }
-</code></pre><h4 id="2-3-2-Parcelable接口"><a href="#2-3-2-Parcelable接口" class="headerlink" title="2.3.2 Parcelable接口"></a>2.3.2 Parcelable接口</h4><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">   User user = new User(0, &quot;jack&quot;, true);</div><div class="line">   try &#123;</div><div class="line">       ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(&quot;cache.txt&quot;));</div><div class="line">       objectOutputStream.writeObject(user);</div><div class="line">       objectOutputStream.close();</div><div class="line">   &#125; catch (IOException e) &#123;</div><div class="line">       e.printStackTrace();</div><div class="line">   &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">//反序列化过程</div><div class="line">   try &#123;</div><div class="line">       ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(&quot;cache.txt&quot;));</div><div class="line">       try &#123;</div><div class="line">           User user1 = (User) inputStream.readObject();</div><div class="line">           inputStream.close();</div><div class="line">       &#125; catch (ClassNotFoundException e) &#123;</div><div class="line">           e.printStackTrace();</div><div class="line">       &#125;</div><div class="line">   &#125; catch (IOException e) &#123;</div><div class="line">       e.printStackTrace();</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h4 id="2-3-2-Parcelable接口"><a href="#2-3-2-Parcelable接口" class="headerlink" title="2.3.2 Parcelable接口"></a>2.3.2 Parcelable接口</h4><blockquote>
 <p>Parcelable也是一个接口，同样是实现这个接口就可以实现序列化和反序列化。下面是用法：</p>
 </blockquote>
-<pre><code>public class User implements Parcelable {
-public int userId;
-public String userName;
-public boolean isMale;
-public Book mBook;
-
-public User(int userId, String userName, boolean isMale, Book book) {
-    this.userId = userId;
-    this.userName = userName;
-    this.isMale = isMale;
-    mBook = book;
-}
-
-
-protected User(Parcel in) {
-    userId = in.readInt();
-    userName = in.readString();
-    isMale = in.readByte() != 0;
-    mBook = in.readParcelable(Book.class.getClassLoader());
-}
-
-public static final Creator&lt;User&gt; CREATOR = new Creator&lt;User&gt;() {
-    @Override
-    public User createFromParcel(Parcel in) {
-        return new User(in);
-    }
-
-    @Override
-    public User[] newArray(int size) {
-        return new User[size];
-    }
-};
-
-@Override
-public int describeContents() {
-    return 0;
-}
-
-@Override
-public void writeToParcel(Parcel dest, int flags) {
-    dest.writeInt(userId);
-    dest.writeString(userName);
-    dest.writeByte((byte) (isMale ? 1 : 0));
-    dest.writeParcelable(mBook, flags);
-}
-}
-</code></pre><p>所有的工作AS都会有提示只需无脑CTRL ENTER。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">    public class User implements Parcelable &#123;</div><div class="line">    public int userId;</div><div class="line">    public String userName;</div><div class="line">    public boolean isMale;</div><div class="line">    public Book mBook;</div><div class="line"></div><div class="line">    public User(int userId, String userName, boolean isMale, Book book) &#123;</div><div class="line">        this.userId = userId;</div><div class="line">        this.userName = userName;</div><div class="line">        this.isMale = isMale;</div><div class="line">        mBook = book;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    protected User(Parcel in) &#123;</div><div class="line">        userId = in.readInt();</div><div class="line">        userName = in.readString();</div><div class="line">        isMale = in.readByte() != 0;</div><div class="line">        mBook = in.readParcelable(Book.class.getClassLoader());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static final Creator&lt;User&gt; CREATOR = new Creator&lt;User&gt;() &#123;</div><div class="line">        @Override</div><div class="line">        public User createFromParcel(Parcel in) &#123;</div><div class="line">            return new User(in);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public User[] newArray(int size) &#123;</div><div class="line">            return new User[size];</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int describeContents() &#123;</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void writeToParcel(Parcel dest, int flags) &#123;</div><div class="line">        dest.writeInt(userId);</div><div class="line">        dest.writeString(userName);</div><div class="line">        dest.writeByte((byte) (isMale ? 1 : 0));</div><div class="line">        dest.writeParcelable(mBook, flags);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>所有的工作AS都会有提示只需无脑CTRL ENTER。</p>
 <hr>
 <h4 id="那么两种序列化之间改如何选取呢？"><a href="#那么两种序列化之间改如何选取呢？" class="headerlink" title="那么两种序列化之间改如何选取呢？"></a>那么两种序列化之间改如何选取呢？</h4><ul>
 <li>Serializable是Java中的序列号接口，使用起来简单但是<strong>开销大</strong></li>
