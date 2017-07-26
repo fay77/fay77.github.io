@@ -3,8 +3,7 @@ title: GitHub + Hexo搭建个人博客
 date: 2017-07-25 13:32:54
 tags:
 ---
-<img src="http://i.imgur.com/cyX1bBo.jpg" style="zoom:50%"/>
-<!--more-->
+
 # 前言
 
 很早就有搭建博客的想法，最近终于有时间，去网上去搜相关教程，结果各种坑，决定写一篇。
@@ -20,6 +19,7 @@ tags:
 
 创建完了之后先不用管他。
 
+<!--more-->
 
 ## 正式安装Hexo
 在安装Hexo之前需要安装Node.js，直接去官网download无脑安装即可。这里我们主要说Hexo。
