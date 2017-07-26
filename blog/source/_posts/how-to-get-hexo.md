@@ -155,9 +155,17 @@ hexo的指令非常少而且简单，现在我们来测下hexo是否成功安装
 
 1. 进入到`git clone`了的文件目录下，找到`.md`也就是你的博客文章，然后修改。
 2. `git add` `git commit` `git push origin hexo`将修改的博文推送到远端
+![](http://i.imgur.com/ppGSYAf.png)
+你会发现修改的博客文章状态改变了
+
+
+![](http://i.imgur.com/WffikCl.png)
+
 3. 执行`hexo g` `hexo d`,hexo会自动将`.md`文章转成html等推送到远端的`master`分支。
 
-每次修改前，只要更新远端`hexo`分支下的资源并且提交就可以了。
+建议去github将`hexo`分支设置为默认分支，这样我们只需要手动管理`hexo`分支即可，`master`就交给了`hexo`去自动管理了。
+
+
 
 
 
