@@ -3,7 +3,7 @@ title: Android中的IPC机制
 ---
 <img src="http://i.imgur.com/u7sPbAR.jpg" style="zoom:50%"/>
 <!--more-->
-## 1.IPC简介
+## 1.IPC简介 
 
 IPC含义为进程间通信或者跨进程通信，是指两个进程之间进行数据交换的过程 , Android中IPC通信的方式有很多，例如:
 - Binder
