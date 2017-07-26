@@ -59,6 +59,7 @@ IPC含义为进程间通信或者跨进程通信，是指两个进程之间进�
 
 #### 2.3.1 Serializable接口
 `Serializable`实现起来非常简单，几乎所有的工作都是系统完成的。如下代码：
+```
 
     public class User implements Serializable {
     private static final long serialVersionUID = 321112538042654820L;
@@ -67,6 +68,7 @@ IPC含义为进程间通信或者跨进程通信，是指两个进程之间进�
     public boolean isMale;
 
 }
+```
 使用AS的同学会发现`serialVersionUID`无法自动提示，这是因为Android Studio设置中忽略了这个，需要重新设置下
 
 1. File–>Settings–>Editor–>Inspections–>Java–>Serialization issues–>Serializable class without ‘serialVersionUID’ 勾选中该选项即可。
@@ -75,8 +77,8 @@ IPC含义为进程间通信或者跨进程通信，是指两个进程之间进�
 2. 进入实现了Serializable中的类，选中类名，Alt+Enter弹出提示，然后直接导入完成
 
 **如何进行对象的序列号和反序列化呢**
-    
-      //序列号过程
+
+```//序列号过程
         User user = new User(0, "jack", true);
         try {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("cache.txt"));
@@ -101,11 +103,12 @@ IPC含义为进程间通信或者跨进程通信，是指两个进程之间进�
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+```
 
 #### 2.3.2 Parcelable接口
 >Parcelable也是一个接口，同样是实现这个接口就可以实现序列化和反序列化。下面是用法：
 
+```
     public class User implements Parcelable {
     public int userId;
     public String userName;
@@ -151,7 +154,7 @@ IPC含义为进程间通信或者跨进程通信，是指两个进程之间进�
         dest.writeByte((byte) (isMale ? 1 : 0));
         dest.writeParcelable(mBook, flags);
     }
-    }
+}```
 所有的工作AS都会有提示只需无脑CTRL ENTER。
 
 ----------
