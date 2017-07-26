@@ -1,583 +1,71 @@
-<!DOCTYPE html>
-<html style="display: none;" lang="zh">
-    <head>
-    <meta charset="utf-8">
-    <!--
-        © Material Theme
-        https://github.com/viosey/hexo-theme-material
-        Version: 1.4.0 -->
-    <script>window.materialVersion = "1.4.0"</script>
-
-    <!-- Title -->
-    
-    <title>
-        
-            GitHub + Hexo搭建个人博客 | 
-        
-        Gao Feng
-    </title>
-
-    <!-- dns prefetch -->
-    <meta http-equiv="x-dns-prefetch-control" content="on">
-    
-    
-    
-    
-    
-    
-    
-        <link rel="dns-prefetch" href="https://busuanzi.ibruce.info"/>
-    
-    
-    
-    
-
-    <!-- Meta & Info -->
-    <meta http-equiv="X-UA-Compatible">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta name="theme-color" content="#0097A7">
-    <meta name="author" content="Feng Gao">
-    <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="null">
-
-    <!-- Site Verification -->
-    
-    <meta name="baidu-site-verification" content="高烽博客" />
-
-    <!-- Favicons -->
-    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
-    <link rel="icon" sizes="192x192" href="/img/favicon.png">
-    <link rel="apple-touch-icon" href="/img/favicon.png">
-
-    <!--iOS -->
-    <meta name="apple-mobile-web-app-title" content="Title">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="480">
-
-    <!-- Add to homescreen for Chrome on Android -->
-    <meta name="mobile-web-app-capable" content="yes">
-
-    <!-- Add to homescreen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Gao Feng">
-
-    <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://yoursite.com">
-    <meta property="og:type" content="blog">
-    <meta property="og:title" content="GitHub + Hexo搭建个人博客 | Gao Feng">
-    <meta property="og:image" content="/img/favicon.png" />
-    <meta property="og:description" content="">
-    
-
-    
-        <meta property="article:published_time" content="7月 25, 2017" />
-        <meta property="article:modified_time" content="7月 25, 2017" />
-    
-
-    <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="GitHub + Hexo搭建个人博客 | Gao Feng">
-    <meta name="twitter:description" content="">
-    <meta name="twitter:image" content="/img/favicon.png">
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="http://yoursite.com" />
-
-    <!-- Add canonical link for SEO -->
-    
-        <link rel="canonical" href="http://yoursite.com/2017/07/25/how-to-get-hexo/index.html" />
-    
-
-    <!-- Structured-data for SEO -->
-    
-        
-
-
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "publisher": {
-        "@type": "Organization",
-        "name": "Gao Feng",
-        "logo": "/img/favicon.png"
-    },
-    "author": {
-        "@type": "Person",
-        "name": "Feng Gao",
-        "image": {
-            "@type": "ImageObject",
-            "url": "/img/favicon.png"
-        },
-        "description": "Hi, nice to meet you"
-    },
-    "headline": "GitHub + Hexo搭建个人博客",
-    "url": "http://yoursite.com/2017/07/25/how-to-get-hexo/index.html",
-    "datePublished": "7月 25, 2017",
-    "dateModified": "7月 25, 2017",
-    "description": "",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "http://yoursite.com"
-    }
-}
-</script>
-
-
-    
-
-    <!--[if lte IE 9]>
-        <link rel="stylesheet" href="/css/ie-blocker.css">
-
-        
-            <script src="/js/ie-blocker.zhCN.js"></script>
-        
-    <![endif]-->
-
-    <!-- Import lsloader -->
-    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+materialVersion+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(data&&data.indexOf(versionString)===-1){lsloader.removeLS(key)}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload){cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}code=code.split(versionString)[1];if(/\.js?.+$/.test(versionNumber)){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload)}};lsloader.requestResource=function(name,path,cssonload){var that=this;if(/\.js?.+$/.test(path)){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else if(/\.css?.+$/.test(path)){this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
-
-    <!-- Import CSS & jQuery -->
-    
-        <style id="css/material.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/material.min.css","/css/material.min.css?fJTiM/K1J3dWIruo3pxtAw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
-        <style id="css/style.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/style.min.css","/css/style.min.css?oCSEO3ST+aEypEwttTDI9g==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
-        
-            <style id="/css/fontawesome.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("/css/fontawesome.min.css","/css/fontawesome.min.css?JpVQUwzBJ7aqWjWSWn3mzg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
-        
-        
-        <!-- Config CSS -->
-
-<!-- Other Styles -->
-<style>
-  body, html {
-    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-  }
-
-  a {
-    color: #00838F;
-  }
-
-  .mdl-card__media,
-  #search-label,
-  #search-form-label:after,
-  #scheme-Paradox .hot_tags-count,
-  #scheme-Paradox .sidebar_archives-count,
-  #scheme-Paradox .sidebar-colored .sidebar-header,
-  #scheme-Paradox .sidebar-colored .sidebar-badge{
-    background-color: #0097A7 !important;
-  }
-
-  /* Sidebar User Drop Down Menu Text Color */
-  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
-  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
-    color: #0097A7 !important;
-  }
-
-  #post_entry-right-info,
-  .sidebar-colored .sidebar-nav li:hover > a,
-  .sidebar-colored .sidebar-nav li:hover > a i,
-  .sidebar-colored .sidebar-nav li > a:hover,
-  .sidebar-colored .sidebar-nav li > a:hover i,
-  .sidebar-colored .sidebar-nav li > a:focus i,
-  .sidebar-colored .sidebar-nav > .open > a,
-  .sidebar-colored .sidebar-nav > .open > a:hover,
-  .sidebar-colored .sidebar-nav > .open > a:focus,
-  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
-    color: #0097A7 !important;
-  }
-
-  .toTop {
-    background: #757575 !important;
-  }
-
-  .material-layout .material-post>.material-nav,
-  .material-layout .material-index>.material-nav,
-  .material-nav a {
-    color: #757575;
-  }
-
-  #scheme-Paradox .MD-burger-layer {
-    background-color: #757575;
-  }
-
-  #scheme-Paradox #post-toc-trigger-btn {
-    color: #757575;
-  }
-
-  .post-toc a:hover {
-    color: #00838F;
-    text-decoration: underline;
-  }
-
-</style>
-
-
-<!-- Theme Background Related-->
-
-    <style>
-      body{
-        background-color: #F5F5F5;
-      }
-
-      /* blog_info bottom background */
-      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
-        background-color: #fff;
-      }
-    </style>
-
-
-
-
-<!-- Fade Effect -->
-
-    <style>
-      .fade {
-        transition: all 800ms linear;
-        -webkit-transform: translate3d(0,0,0);
-        -moz-transform: translate3d(0,0,0);
-        -ms-transform: translate3d(0,0,0);
-        -o-transform: translate3d(0,0,0);
-        transform: translate3d(0,0,0);
-        opacity: 1;
-      }
-
-      .fade.out{
-        opacity: 0;
-      }
-    </style>
-
-
-<!-- Import Font -->
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
-
-
-        <script>lsloader.load("js/jquery.min.js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==")</script>
-    
-    
-    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
-
-    <!-- Analytics -->
-    
-
-    <!-- Custom Head -->
-    
-</head>
-
-
-    
-        <body id="scheme-Isolation" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
-                
-                    <!-- Isolation Header -->
-                    <header class="header">
-    <div class="header-wrapper">
-        <!-- Header Copyright -->
-        <div class="header-copyright">
-            <div class="header-site">
-                ©&nbsp;
-                <script type="text/javascript">
-                    var fd = new Date();
-                    document.write(fd.getFullYear());
-                </script>
-                &nbsp;Gao Feng
-            </div>
-            <!--
-            I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright.
-            It will not impact the appearance and can give developers a lot of support :)
-
-            很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
-            它不会影响美观并可以给开发者很大的支持。 :)
-            -->
-            <div>
-                Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a>
-                <br>
-                Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a>
-            </div>
-        </div>
-
-        <!-- Header Title -->
-        <span class="header-title header-item">
-            <a href="/" title="Gao Feng">
-                Gao Feng
-            </a>
-        </span>
-
-        <p class="header-slogan header-item">
-        
-            
-                Hi, nice to meet you
-            
-        
-        </p>
-
-        <!-- Header Nav -->
-        <nav class="header-nav header-item">
-            <span class="header-nav-item">
-                <a href="/" title="Home">
-                    <span>主页</span>
-                </a>
-            </span>
-
-            <!-- Pages  -->
-            
-            
-        </nav>
-
-        <!-- Header SNS -->
-        <div class="header-item header-sns_list">
-    <!-- Twitter -->
-    
-        <a href="https://twitter.com/twitter" target="_blank">
-            <i class="fa fa-twitter fa-lg" aria-hidden="true"></i>
-        </a>
-    
-
-    <!-- Facebook -->
-    
-        <a href="https://www.facebook.com/facebook" target="_blank">
-            <i class="fa fa-facebook fa-lg" aria-hidden="true"></i>
-        </a>
-    
-
-    <!-- Google + -->
-    
-        <a href="https://www.google.com/" target="_blank">
-            <i class="fa fa-google-plus fa-lg" aria-hidden="true"></i>
-        </a>
-    
-
-    <!-- Weibo -->
-    
-
-    <!-- Instagram -->
-    
-
-    <!-- Tumblr -->
-    
-
-    <!-- Github -->
-    
-
-    <!-- LinkedIn -->
-    
-
-    <!-- Telegram -->
-    
-</div>
-
-    </div>
-</header>
-
-                
-
-                <!-- Main Container -->
-                <main class="material-layout__content" id="main">
-
-                    <!-- Top Anchor -->
-                    <div id="top"></div>
-
-                    
-
-                    <!-- Post TOC -->
-
-    
-
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-
-
-    <!-- Isolation Post Header -->
-    <!-- Post thumbnail -->
-    
-        <!-- Post Header Info -->
-        <div class="post-header_info without-thumbnail">
-            <!-- Author Avatar & Name -->
-            <img src="/img/avatar.png" class="avatar-img" width="44px" height="44px" alt="Feng Gao's avatar">
-            <span class="name-span">Feng Gao</span>
-        </div>
-
-        <!-- Null Thumbnail -->
-        <div class="post_thumbnail-null">
-    
-        </div>
-
-
-
-                
-
-                <!-- Post Content -->
-                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-    
-
-    
-        <div class="post-content_wrapper">
-            <p class="post-title">
-                GitHub + Hexo搭建个人博客
-            </p>
-            
-        </div>
-    
-</div>
-
-
-                
-                    <!-- Paradox Post Info -->
-                    
-                
-
-                <!-- Post Comments -->
-                
-                    
-                
-            </div>
-
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    <!-- Prev Nav -->
-    
-
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
-
-    <!-- Next Nav -->
-    
-        <a href="/2017/07/24/hello-world/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
-    
-</nav>
-
-        </div>
-    </div>
-
-
-
-                    
-
-                    
-
-                    <!--Footer-->
-<footer class="mdl-mini-footer" id="bottom">
-    
-</footer>
-
-
-                    <!-- Import File -->
-
-
-    <script>lsloader.load("js/lazyload.min.js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==")</script>
-    <script>lsloader.load("js/js.min.js","/js/js.min.js?oAl/+lvaqTFV31JXTmbrNA==")</script>
-
-
-
-    <script>lsloader.load("js/nprogress.js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==")</script>
-
-
-<script type="text/ls-javascript" id="NProgress-script">
-    NProgress.configure({
-        showSpinner: true
-    });
-    NProgress.start();
-    $('#nprogress .bar').css({
-        'background': '#29d'
-    });
-    $('#nprogress .peg').css({
-        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
-    });
-    $('#nprogress .spinner-icon').css({
-        'border-top-color': '#29d',
-        'border-left-color': '#29d'
-    });
-    setTimeout(function() {
-        NProgress.done();
-        $('.fade').removeClass('out');
-    }, 800);
-</script>
-
-
-
-
-
-
-
-    <!-- Busuanzi -->
-    <script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-
-
-
-<!-- UC Browser Compatible -->
-<script>
-	var agent = navigator.userAgent.toLowerCase();
-	if(agent.indexOf('ucbrowser')>0) {
-		document.write('<link rel="stylesheet" href="/css/uc.css">');
-	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
-	}
-</script>
-
-<!-- Window Load-->
-<script type="text/ls-javascript" id="window-load">
-    $(window).on('load', function() {
-        // Post_Toc parent position fixed
-        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
-    });
-</script>
-
-<!-- MathJax Load-->
-
-<script type="text/ls-javascript" id="lazy-load">
-    // Offer LazyLoad
-    queue.offer(function(){
-        $('.lazy').lazyload({
-            effect : 'show'
-        });
-    });
-
-    // Start Queue
-    $(document).ready(function(){
-        setInterval(function(){
-            queue.execNext();
-        },200);
-    });
-</script>
-
-<!-- Bing Background -->
-
-
-<script>
-    (function(){
-        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
-
-        for (var i = 0; i < scriptList.length; ++i) {
-            var item = scriptList[i];
-            lsloader.runInlineScript(item.id,item.id);
-        }
-    })()
-console.log('\n %c © Material Theme | Version: 1.4.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
-</script>
-
-                </main>
-            </div>
-        </body>
-    
-</html>
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>GitHub + Hexo搭建个人博客 - Gao Feng</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/title.jpg"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">GitHub + Hexo搭建个人博客</h1><ul class="meta"><li><i class="icon icon-author"></i>Feng Gao</li><li><i class="icon icon-clock"></i>3 Minutes</li><li><i class="icon icon-calendar"></i>2017年7月25日</li></ul></div></div><div class="article-content" style="max-width:800px"><p><img src="http://i.imgur.com/cyX1bBo.jpg" style="zoom:50%"><br><a id="more"></a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>很早就有搭建博客的想法，最近终于有时间，去网上去搜相关教程，结果各种坑，决定写一篇。</p>
+<p><img src="http://i.imgur.com/lgL0TVv.jpg" style="zoom:10%"></p>
+<p>假设你已经拥有了GitHub以及ssh认证等，去gitHub新建一个仓库，仓库名必须为  <code>yourusername.github.io</code></p>
+<p>如：</p>
+<p><img src="http://i.imgur.com/1bvOqTh.png" alt=""></p>
+<p>创建完了之后先不用管他。</p>
+<h2 id="正式安装Hexo"><a href="#正式安装Hexo" class="headerlink" title="正式安装Hexo"></a>正式安装Hexo</h2><p>在安装Hexo之前需要安装Node.js，直接去官网download无脑安装即可。这里我们主要说Hexo。</p>
+<p>首先创建一个文件夹存放hexo配置，如Blog。</p>
+<p><strong>记住在执行hexo指令前，必须是在刚才存放hexo配置的文件目录下，否则命令无效，所依我们一路cd 到刚才的Blog文件夹下</strong></p>
+<p>执行如下命令安装Hexo：</p>
+<pre><code>sudo npm install -g hexo
+</code></pre><p>初始化然后，执行init命令初始化hexo,命令：</p>
+<pre><code>hexo init
+</code></pre><p>hexo的指令非常少而且简单，现在我们来测下hexo是否成功安装</p>
+<pre><code>hexo g
+</code></pre><p>本地启动<br>我们来预览调试<br>    hexo s<br>浏览器输入 <code>http://localhost:4000</code></p>
+<h4 id="现在回到我们的github"><a href="#现在回到我们的github" class="headerlink" title="现在回到我们的github"></a>现在回到我们的github</h4><ol>
+<li>找到你的仓库，<code>yourusername.github.io</code></li>
+<li>点击仓库的<code>SETTING</code>选项卡</li>
+<li>下拉到<code>GitHub Pages</code>选项中，点击如下图按钮<code>Choose theme</code></li>
+</ol>
+<p><img src="http://i.imgur.com/xDRJvHT.png" alt=""></p>
+<p>点击之后随便选个theme，随后关闭我们的GitHub.</p>
+<h2 id="配置Hexo"><a href="#配置Hexo" class="headerlink" title="配置Hexo"></a>配置Hexo</h2><p>进入我们的Blog文件夹，这里的根目录下有个<code>_config.yml</code>文件，这个叫做<strong>站点配置文件</strong>可以理解成全局的配置文件。</p>
+<p>现在来设置这个配置文件</p>
+<p>这里重点修改内容是整个配置文件的最下面的这么一段：</p>
+<pre><code>deploy:
+
+ type: git
+
+ repo: git@github.com:fay77/fay77.github.io.git
+
+ branch: master
+</code></pre><p><img src="http://i.imgur.com/FtgFnxj.jpg" style="zoom:%"></p>
+<p><strong>需要注意的是所有的冒号后面都要加个空格，否则无效，repo后面跟的是ssh地址，http地址会有问题</strong></p>
+<p>然后执行命令：</p>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre><p>到此为止基本配置都结束了，我们开始部署到gitHub上，执行命令：</p>
+<pre><code>hexo deploy
+</code></pre><p>然后再浏览器中输入<a href="http://fay77.github.io/" target="_blank" rel="external">http://fay77.github.io/</a> 就行了，我的github的账户叫fay77,把这个改成你github的账户名就行了</p>
+<h3 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h3><p>每次部署都按以下三步来进行</p>
+<ul>
+<li><code>hexo clean</code></li>
+<li><code>hexo g</code></li>
+<li><code>hexo d</code></li>
+</ul>
+<h2 id="域名绑定"><a href="#域名绑定" class="headerlink" title="域名绑定"></a>域名绑定</h2><p>以上步骤生成的博客地址均以 <code>xxx.github.io</code>为地址的，你也可以更改这个地址，绑定你的域名。</p>
+<h3 id="购买域名"><a href="#购买域名" class="headerlink" title="购买域名"></a>购买域名</h3><p>我用的是dnspod，进入搜索你想要的域名，然后支付。这里很简单不多说。</p>
+<p>点击  <strong>解析</strong> 进入</p>
+<p><img src="http://i.imgur.com/ez4ypru.png" alt=""></p>
+<p>点击  添加记录 选A</p>
+<p><img src="http://i.imgur.com/LCTN8zm.png" alt=""></p>
+<p>这里的ping需要打开cmd执行命令<br>   <code>ping -t fay77github.io</code><br>得到一串ip地址，复制并且粘贴到记录值一栏。 点击确定。</p>
+<p>再次点击添加记录 选CNAME<br>记录值这次填你的github.io那个地址就可以了。</p>
+<h2 id="GitHubPage绑定你的域名"><a href="#GitHubPage绑定你的域名" class="headerlink" title="GitHubPage绑定你的域名"></a>GitHubPage绑定你的域名</h2><p>在blog文件下<br><img src="http://i.imgur.com/R6M0kTM.png" alt=""><br>新建CNAME，里面填入你的域名。 然后执行命令<br>    <code>hexo g</code><br>    <code>hexo d</code></p>
+<p><img src="http://i.imgur.com/MVzNTim.jpg" style="zoom:50%"></p>
+<p>大功告成。 访问你的域名就可以了。</p>
+</div><div class="article-meta" style="max-width:800px"></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cj5kd0upa0001mstco70lg1ts" data-title="GitHub + Hexo搭建个人博客" data-url="http://gaofeng77.cn/2017/07/25/how-to-get-hexo/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
+var duoshuoQuery = {short_name: siteName};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2017/07/24/hello-world/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/fay77" title="Github" target="_blank"><i class="icon icon-github"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2017 Gao Feng<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
+window.onload = function () {
+  wrap.className += ' done';
+}</script></body></html>
