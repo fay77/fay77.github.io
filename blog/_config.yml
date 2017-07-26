@@ -7,7 +7,7 @@ title: Gao Feng
 subtitle:
 description: 
 author: Feng Gao
-language: zh-CN
+language: zh-Hans
 timezone:
 
 # URL
@@ -72,7 +72,19 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: material
+theme: next
+
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+
+# title
+links_title: Links
+# links
+links:
+  ShineF: http://shine666.club
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
