@@ -10,7 +10,7 @@ IPC含义为进程间通信或者跨进程通信，是指两个进程之间进�
 这里面最有特色的就是**Binder** 
 <!--more-->
 ## 2.Android中的多进程模式
- 
+
 
 #### 2.1开启多进程模式
 　　Android中开启多线程模式非常的简单，只要在四大组件(Activity、Service、Receive、ContentProvider)的`AndroidMeniFest`中指定`android:process`属性。
