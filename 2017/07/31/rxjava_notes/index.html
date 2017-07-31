@@ -93,16 +93,17 @@
 
 
 
-<meta name="description" content="这个签名我想了很久">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Gao Feng">
-<meta property="og:url" content="http://gaofeng77.cn/index.html">
+<meta name="description" content="前言之前学了一段时间的RxJava，由于项目中没用到过，回头看居然又忘了，索性今天再去捋一遍吧。注：只记录学习笔记，详细的不赘述。 先贴上个人觉得RxJava讲的最好的一个系列： http://www.jianshu.com/p/464fa025229e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxJava学习笔记">
+<meta property="og:url" content="http://gaofeng77.cn/2017/07/31/rxjava_notes/index.html">
 <meta property="og:site_name" content="Gao Feng">
-<meta property="og:description" content="这个签名我想了很久">
+<meta property="og:description" content="前言之前学了一段时间的RxJava，由于项目中没用到过，回头看居然又忘了，索性今天再去捋一遍吧。注：只记录学习笔记，详细的不赘述。 先贴上个人觉得RxJava讲的最好的一个系列： http://www.jianshu.com/p/464fa025229e">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-07-31T07:46:59.782Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gao Feng">
-<meta name="twitter:description" content="这个签名我想了很久">
+<meta name="twitter:title" content="RxJava学习笔记">
+<meta name="twitter:description" content="前言之前学了一段时间的RxJava，由于项目中没用到过，回头看居然又忘了，索性今天再去捋一遍吧。注：只记录学习笔记，详细的不赘述。 先贴上个人觉得RxJava讲的最好的一个系列： http://www.jianshu.com/p/464fa025229e">
 
 
 
@@ -130,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://gaofeng77.cn/"/>
+  <link rel="canonical" href="http://gaofeng77.cn/2017/07/31/rxjava_notes/"/>
 
 
 
 
 
-  <title> Gao Feng </title>
+  <title> RxJava学习笔记 | Gao Feng </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -159,9 +160,7 @@
   
   
 
-  <div class="container  
-   page-home 
- ">
+  <div class="container  page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -268,9 +267,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -300,10 +299,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/07/31/rxjava_notes/" itemprop="url">
-                  RxJava学习笔记
-                </a>
+                RxJava学习笔记
               
             
           </h1>
@@ -376,323 +372,89 @@
       
 
       
-        
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前学了一段时间的RxJava，由于项目中没用到过，回头看居然又忘了，索性今天再去捋一遍吧。<br>注：只记录学习笔记，详细的不赘述。</p>
-<p>先贴上个人觉得RxJava讲的最好的一个系列： <a href="http://www.jianshu.com/p/464fa025229e" target="_blank" rel="external">http://www.jianshu.com/p/464fa025229e</a><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/31/rxjava_notes/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前学了一段时间的RxJava，由于项目中没用到过，回头看居然又忘了，索性今天再去捋一遍吧。<br>注：只记录学习笔记，详细的不赘述。</p>
+<p>先贴上个人觉得RxJava讲的最好的一个系列： <a href="http://www.jianshu.com/p/464fa025229e" target="_blank" rel="external">http://www.jianshu.com/p/464fa025229e</a><br><a id="more"></a></p>
+<h3 id="ObservableEmitter"><a href="#ObservableEmitter" class="headerlink" title="ObservableEmitter"></a>ObservableEmitter</h3><p> ObservableEmitter 发射器，可以发出<code>onNext(T value)</code>、<code>onComplete()</code>和<code>onError(Throwable error)</code>必须遵循的规则：</p>
+<blockquote>
+<p>上游即<code>Observable</code>在发送<code>onNext</code>、 <code>onComplete</code> 、<code>onError</code>之后均可以持续发送接下来的事件，也可以不发送<code>onComplete</code>、但是<code>onComplete</code>和<code>onError</code>不可以同时存在并且唯一。<br>下游接收到<code>onComplete</code>、<code>onError</code>之后不再继续接收。</p>
+</blockquote>
+<h3 id="Disposable"><a href="#Disposable" class="headerlink" title="Disposable"></a>Disposable</h3><p>可以简单理解成两根水管之间的一个开关。当调用他的<code>dispose()</code>方法时，它就会将两根水管切断，导致下游接收不到事件 ，但是上游会<strong>继续</strong>发送事件。</p>
+<blockquote>
+<p>上游在切断水管之后依旧发送了3、4、onComplete事件，而下游只接收到了切断之前的事件</p>
+</blockquote>
+<h3 id="subscribe"><a href="#subscribe" class="headerlink" title="subscribe()"></a>subscribe()</h3><p>有多个重载方法</p>
+<ol>
+<li>subscribe() 不带任何参数，表示下游不关心上游发送了什么，发你的去吧</li>
+<li>带有一个<code>Consumer</code>表示下游只关心<code>onNext</code>事件。</li>
+</ol>
+<h2 id="线程操控"><a href="#线程操控" class="headerlink" title="线程操控"></a>线程操控</h2><p>上下游默认是工作在同一线程中的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(consumer);</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>subscribeOn()</code> 指定的是上游发送事件的线程, <code>observeOn()</code> 指定的是下游接收事件的线程.</p>
+</blockquote>
+<ul>
+<li>多次调用<code>subscribeOn</code>只有第一次生效</li>
+<li>多次调用<code>observerOn</code>，每次调用下游都会切换一次线程</li>
+</ul>
+<p>尽量使用RxJava内置的线程来使用，内部是线程池来维护效率比较高：</p>
+<ul>
+<li><code>Schedulers.io</code> 代表io操作的线程，通常用于网络、读写文件等io密集型操作。</li>
+<li><code>Schedulers.computation()</code>代表CPU计算密集型操作，例如需要大量计算的操作</li>
+<li><code>Schedulers.newThread()</code>代表一个常规的新线程</li>
+<li><code>AndroidSchedulers.mainThread</code>代表Android的主线程</li>
+</ul>
+<h2 id="变换操作符Map"><a href="#变换操作符Map" class="headerlink" title="变换操作符Map"></a>变换操作符Map</h2><p>将上游的事件通过指定的函数去变化，下游接收到的就是变化后的一个个事件了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">Observable.create(new ObservableOnSubscribe&lt;Integer&gt;() &#123;</div><div class="line">			@Override</div><div class="line">			public void subscribe(ObservableEmitter&lt;Integer&gt; e) throws Exception &#123;</div><div class="line">				e.onNext(1);</div><div class="line">				e.onNext(2);</div><div class="line">				e.onNext(3);</div><div class="line">			&#125;</div><div class="line">		&#125;).map(new Function&lt;Integer, String&gt;() &#123;</div><div class="line">			@Override</div><div class="line">			public String apply(Integer integer) throws Exception &#123;</div><div class="line">				return &quot;this is result&quot; + integer;</div><div class="line">			&#125;</div><div class="line">		&#125;).subscribe(new Consumer&lt;String&gt;() &#123;</div><div class="line">			@Override</div><div class="line">			public void accept(String s) throws Exception &#123;</div><div class="line">				Log.d(TAG, s);</div><div class="line"></div><div class="line">			&#125;</div><div class="line">		&#125;);</div></pre></td></tr></table></figure>
+<h2 id="FlatMap"><a href="#FlatMap" class="headerlink" title="FlatMap"></a>FlatMap</h2><p>上游每次发送一个事件，<code>FlatMap</code>就会创建一个新水管，发送转换之后的事件，不保证顺序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">flatMap(new Function&lt;Integer, ObservableSource&lt;String&gt;&gt;() &#123;</div><div class="line">			@Override</div><div class="line">			public ObservableSource&lt;String&gt; apply(Integer integer) throws Exception &#123;</div><div class="line">				final List&lt;String&gt; list = new ArrayList&lt;String&gt;();</div><div class="line">				for (int j = 0; j &lt; 3; j++) &#123;</div><div class="line">					list.add(&quot;i am value&quot; + j);</div><div class="line">				&#125;</div><div class="line">				return Observable.fromIterable(list).delay(10, TimeUnit.MILLISECONDS);</div><div class="line">			&#125;</div><div class="line">		&#125;)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>延迟只是为了证明<code>flatMap</code>是无序的 ，如果需要有序的可以使用<code>concatMap</code>，用法与<code>flatMap</code>一模一样。</p>
+</blockquote>
+<h2 id="zip操作符"><a href="#zip操作符" class="headerlink" title="zip操作符"></a>zip操作符</h2><p>通过一个函数将多个<code>Observable</code>结合到一起然后再发送</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">	Observable.zip(observable, observable1, new BiFunction&lt;Integer, String, String&gt;() &#123;</div><div class="line">		@Override</div><div class="line">		public String apply(Integer integer, String s) throws Exception &#123;</div><div class="line">			return integer + s;</div><div class="line">		&#125;</div><div class="line">	&#125;).subscribe(new Observer&lt;String&gt;() &#123;</div><div class="line">		@Override</div><div class="line">		public void onSubscribe(Disposable d) &#123;</div><div class="line">			Log.d(TAG, &quot;onSubscribe&quot;);</div><div class="line"></div><div class="line">		&#125;</div><div class="line"></div><div class="line">		@Override</div><div class="line">		public void onNext(String value) &#123;</div><div class="line">			Log.d(TAG, &quot;onNext: &quot; + value);</div><div class="line"></div><div class="line">		&#125;</div><div class="line"></div><div class="line">		@Override</div><div class="line">		public void onError(Throwable e) &#123;</div><div class="line">			Log.d(TAG, &quot;onError&quot;);</div><div class="line"></div><div class="line">		&#125;</div><div class="line"></div><div class="line">		@Override</div><div class="line">		public void onComplete() &#123;</div><div class="line">			Log.d(TAG, &quot;onComplete&quot;);</div><div class="line"></div><div class="line">		&#125;</div><div class="line">	&#125;);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
       
     </div>
 
     <div>
       
+        
+
+      
     </div>
 
     <div>
       
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://gaofeng77.cn/2017/07/26/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feng Gao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/image/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gao Feng">
-    </span>
-
-    
-      <header class="post-header">
-
         
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/26/hello-world/" itemprop="url">
-                  Android中的IPC机制
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-26T12:30:23+08:00">
-                2017-07-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/26/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/26/hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/07/26/hello-world/" class="leancloud_visitors" data-flag-title="Android中的IPC机制">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://i.imgur.com/wqd8k7G.png" alt="Feng Gao WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
       
       
-
-      
-        
-          <p><img src="http://i.imgur.com/gcTmPam.jpg" style="zoom:40%"><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/26/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://gaofeng77.cn/2017/07/25/how-to-get-hexo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feng Gao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/image/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gao Feng">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/25/how-to-get-hexo/" itemprop="url">
-                  GitHub + Hexo搭建个人博客
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T13:32:54+08:00">
-                2017-07-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/25/how-to-get-hexo/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/25/how-to-get-hexo/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/07/25/how-to-get-hexo/" class="leancloud_visitors" data-flag-title="GitHub + Hexo搭建个人博客">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://i.imgur.com/wbmAhDV.png" alt="Feng Gao Alipay"/>
+          <p>支付宝打赏</p>
         </div>
-      </header>
-    
+      
+    </div>
+  </div>
 
-
-    <div class="post-body" itemprop="articleBody">
 
       
-      
+    </div>
 
+    <div>
       
         
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>很早就有搭建博客的想法，最近终于有时间，去网上去搜相关教程，结果各种坑，决定写一篇。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/25/how-to-get-hexo/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
       
     </div>
 
@@ -700,21 +462,61 @@
       
 
       
-
+        
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/26/hello-world/" rel="next" title="Android中的IPC机制">
+                <i class="fa fa-chevron-left"></i> Android中的IPC机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -722,6 +524,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -741,8 +554,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/image/avatar.png"
@@ -820,6 +642,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ObservableEmitter"><span class="nav-number">1.0.1.</span> <span class="nav-text">ObservableEmitter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Disposable"><span class="nav-number">1.0.2.</span> <span class="nav-text">Disposable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subscribe"><span class="nav-number">1.0.3.</span> <span class="nav-text">subscribe()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程操控"><span class="nav-number">1.1.</span> <span class="nav-text">线程操控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变换操作符Map"><span class="nav-number">1.2.</span> <span class="nav-text">变换操作符Map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FlatMap"><span class="nav-number">1.3.</span> <span class="nav-text">FlatMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#zip操作符"><span class="nav-number">1.4.</span> <span class="nav-text">zip操作符</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -927,6 +765,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
@@ -944,6 +786,18 @@
       <script id="dsq-count-scr" src="https://gaofeng.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://gaofeng77.cn/2017/07/31/rxjava_notes/';
+          this.page.identifier = '2017/07/31/rxjava_notes/';
+          this.page.title = 'RxJava学习笔记';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://gaofeng.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
