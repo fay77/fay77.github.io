@@ -279,6 +279,158 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://gaofeng77.cn/2017/07/31/retorfit_notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feng Gao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/image/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gao Feng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/31/retorfit_notes/" itemprop="url">
+                  Retrofit学习分析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-31T13:32:54+08:00">
+                2017-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/31/retorfit_notes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/31/retorfit_notes/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/31/retorfit_notes/" class="leancloud_visitors" data-flag-title="Retrofit学习分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Retrofit是如何通过注解来设置okhttp的配置的呢"><a href="#Retrofit是如何通过注解来设置okhttp的配置的呢" class="headerlink" title="Retrofit是如何通过注解来设置okhttp的配置的呢"></a>Retrofit是如何通过注解来设置okhttp的配置的呢</h3><p>Retrofit通过注解的方式来配置http请求，即使不用okhttp改用httpClient上层也不需要去修改。</p>
+<p>带着多种疑问去看源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">public Retrofit build() &#123;</div><div class="line">    if (baseUrl == null) &#123;</div><div class="line">      throw new IllegalStateException(&quot;Base URL required.&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    okhttp3.Call.Factory callFactory = this.callFactory;</div><div class="line">    if (callFactory == null) &#123;</div><div class="line">      callFactory = new OkHttpClient();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // Make a defensive copy of the adapters and add the default Call adapter.</div><div class="line">    List&lt;CallAdapter.Factory&gt; adapterFactories = new ArrayList&lt;&gt;(this.adapterFactories);</div><div class="line">    adapterFactories.add(Platform.get().defaultCallAdapterFactory(callbackExecutor));</div><div class="line"></div><div class="line">    // Make a defensive copy of the converters.</div><div class="line">    List&lt;Converter.Factory&gt; converterFactories = new ArrayList&lt;&gt;(this.converterFactories);</div><div class="line"></div><div class="line">    return new Retrofit(callFactory, baseUrl, converterFactories, adapterFactories,</div><div class="line">        callbackExecutor, validateEagerly);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>这是<code>Retrofit</code>中<code>build</code>方法，其中有一行我们看到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">okhttp3.Call.Factory callFactory = this.callFactory;</div><div class="line">      if (callFactory == null) &#123;</div><div class="line">        callFactory = new OkHttpClient();</div><div class="line">      &#125;</div></pre></td></tr></table></figure>
+<p>这行代码目测是忘记删了，没有对<code>callFactory!=null</code>的情况做处理，并且从这里我们看出<code>Retrofit</code>目前只支持<code>Okhttp</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">@Override public void enqueue(final Callback&lt;T&gt; callback) &#123;</div><div class="line">  delegate.enqueue(new Callback&lt;T&gt;() &#123;</div><div class="line">    @Override public void onResponse(final Call&lt;T&gt; call, final Response&lt;T&gt; response) &#123;</div><div class="line">      callbackExecutor.execute(new Runnable() &#123;</div><div class="line">        @Override public void run() &#123;</div><div class="line">          if (delegate.isCanceled()) &#123;</div><div class="line">            // Emulate OkHttp&apos;s behavior of throwing/delivering an IOException on cancelation</div><div class="line">            callback.onFailure(call, new IOException(&quot;Canceled&quot;));</div><div class="line">          &#125; else &#123;</div><div class="line">            callback.onResponse(call, response);</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override public void onFailure(final Call&lt;T&gt; call, final Throwable t) &#123;</div><div class="line">      callbackExecutor.execute(new Runnable() &#123;</div><div class="line">        @Override public void run() &#123;</div><div class="line">          callback.onFailure(call, t);</div><div class="line">        &#125;</div><div class="line">      &#125;);</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>callbackExecutor.execute</code>将异步从子线程切换到主线程中并回调<code>callBack</code>。</p>
+<p>接着我们来看看<code>Retrofit</code>中个人认为最神奇的一行代码</p>
+<p><code>RequestServes requestSerives = retrofit.create(RequestServes.class);</code><br>这个类明明是个接口，并且我们没有实现类，<code>Retrofit</code>是如何生成我们的实现类的呢？<br>这个。。。总之就是动态代理了  反正我也看不懂。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://gaofeng77.cn/2017/07/31/rxjava_notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -757,7 +909,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
