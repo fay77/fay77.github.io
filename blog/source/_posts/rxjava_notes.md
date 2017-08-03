@@ -132,3 +132,28 @@ flatMap(new Function<Integer, ObservableSource<String>>() {
 
 	}
 ```
+
+由`zip`引出的`Backpressure`概念：
+
+`zip`是用于组合两根`水管`，假如一根水管发送快，一根发送慢，那么发送快的势必需要等待，因此需要将数据缓存到一个类似`水缸`的地方。但是如果一直往水缸里发送数据，内存就会爆掉。
+`Backpressure`就是控制流量的
+
+###### 控制流量方案1：
+
+```
+Observable.create(new ObservableOnSubscribe<Integer>() {                         
+    @Override                                                                    
+    public void subscribe(ObservableEmitter<Integer> emitter) throws Exception { 
+        for (int i = 0; ; i++) {   //无限循环发事件                                              
+            emitter.onNext(i);                                                   
+        }                                                                        
+    }                                                                            
+}).subscribe(new Consumer<Integer>() {                                           
+    @Override                                                                    
+    public void accept(Integer integer) throws Exception {                       
+        Thread.sleep(2000);                                                      
+        Log.d(TAG, "" + integer);                                                
+    }                                                                            
+});
+
+```

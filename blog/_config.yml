@@ -84,7 +84,8 @@ search:
 links_title: Links
 # links
 links:
-  ShineF: http://shine666.club
+  ShineF: http://shine666.club 
+  wangZai: http://xiangzhenwang.github.io
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
