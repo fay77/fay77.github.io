@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Gao Feng">
 <meta property="og:description" content="前言  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！  MVP模式到底是什么？  个人理解MVP模式就是将数据层与视图层彻底分离，增加耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-24T02:32:39.584Z">
+<meta property="og:updated_time" content="2018-02-24T02:40:32.141Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MVP模式探讨">
 <meta name="twitter:description" content="前言  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！  MVP模式到底是什么？  个人理解MVP模式就是将数据层与视图层彻底分离，增加耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。">
@@ -481,28 +481,28 @@ void getMovieFail(int status, String desc);
 
 }
 </code></pre><hr>
-<pre><code>//View层（实现回调接口IMovieView中的方法）
+<pre><code>    //View层（实现回调接口IMovieView中的方法）
 
-public class MovieActivity implements IMovieView{
+    public class MovieActivity implements IMovieView{
 
-   ...
+       ...
 
-//网络请求成功的回调
-@Override
-public void getMovieSuccess(List&lt;MovieRes&gt; list) {
-if (CollectionUtil.isEmpty(list)) {
-//数据为空则设置页面为“无数据”状态
-getLoadLayout().setLayoutState(State.NO_DATA);
-}else{
-//设置页面为“成功”状态，显示正文布局
-getLoadLayout().setLayoutState(State.SUCCESS);
+    //网络请求成功的回调
+    @Override
+    public void getMovieSuccess(List&lt;MovieRes&gt; list) {
+    if (CollectionUtil.isEmpty(list)) {
+    //数据为空则设置页面为“无数据”状态
+        getLoadLayout().setLayoutState(State.NO_DATA);
+        }else{
+    //设置页面为“成功”状态，显示正文布局
+    getLoadLayout().setLayoutState(State.SUCCESS);
 
-//列表展示数据
-mMovieAdapter = new MovieAdapter(mActivity, list, this);
-mRvMovie.setLayoutManager(new LinearLayoutManager(getContext()));
-mRvMovie.setHasFixedSize(false);
-mRvMovie.setAdapter(mMovieAdapter);
-}
+    //列表展示数据
+    mMovieAdapter = new MovieAdapter(mActivity, list,     this);
+    mRvMovie.setLayoutManager(new LinearLayoutManager(getContext()));
+    mRvMovie.setHasFixedSize(false);
+        mRvMovie.setAdapter(mMovieAdapter);
+    }
 
  }
 
@@ -514,7 +514,7 @@ getLoadLayout().setLayoutState(State.FAILED);
 }
 
    ...
- }
+ }`
 </code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>  MVP模式相对于MVC模式最大的不同就是，MVC中， M层与V层是相通的，而MVP中是不相通的。 </p>
 
       
