@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="前言不会偷懒的程序员不是好的程序员，学会如何封装是程序员的一条必经之路，那么你真的会封装吗？接下来我们一步步来封装实现属于你自己的一个框架。 Base类都能做些什么善用Base类解决应用强杀造成的空指针问题。如果一个应用在application里初始化了一个静态变量，并且在第二个页面中用到这个静态变量，如果应用这时候被强杀，再次进来是直接走到第二个页面的，这时候就会造成空指针异常。  思路： 我们">
+<meta name="description" content="前言不会偷懒的程序员不是好的程序员，学会如何封装是程序员的一条必经之路，那么你真的会封装吗？接下来我们一步步来封装实现属于你自己的一个框架。 Base类都能做些什么Android中有个坑，如果应用被强杀那么Activity的栈信息将会被保存下来，下次恢复直接走到上次被强杀前的页面，这样就出现很多问题了。 善用Base类解决应用强杀造成的空指针问题。空指针场景：如果一个应用在application里">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android封装思想与应用">
 <meta property="og:url" content="http://gaofeng77.cn/2017/08/14/android_framwork/index.html">
 <meta property="og:site_name" content="Gao Feng">
-<meta property="og:description" content="前言不会偷懒的程序员不是好的程序员，学会如何封装是程序员的一条必经之路，那么你真的会封装吗？接下来我们一步步来封装实现属于你自己的一个框架。 Base类都能做些什么善用Base类解决应用强杀造成的空指针问题。如果一个应用在application里初始化了一个静态变量，并且在第二个页面中用到这个静态变量，如果应用这时候被强杀，再次进来是直接走到第二个页面的，这时候就会造成空指针异常。  思路： 我们">
+<meta property="og:description" content="前言不会偷懒的程序员不是好的程序员，学会如何封装是程序员的一条必经之路，那么你真的会封装吗？接下来我们一步步来封装实现属于你自己的一个框架。 Base类都能做些什么Android中有个坑，如果应用被强杀那么Activity的栈信息将会被保存下来，下次恢复直接走到上次被强杀前的页面，这样就出现很多问题了。 善用Base类解决应用强杀造成的空指针问题。空指针场景：如果一个应用在application里">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-14T06:01:03.469Z">
+<meta property="og:updated_time" content="2017-08-14T06:36:08.153Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android封装思想与应用">
-<meta name="twitter:description" content="前言不会偷懒的程序员不是好的程序员，学会如何封装是程序员的一条必经之路，那么你真的会封装吗？接下来我们一步步来封装实现属于你自己的一个框架。 Base类都能做些什么善用Base类解决应用强杀造成的空指针问题。如果一个应用在application里初始化了一个静态变量，并且在第二个页面中用到这个静态变量，如果应用这时候被强杀，再次进来是直接走到第二个页面的，这时候就会造成空指针异常。  思路： 我们">
+<meta name="twitter:description" content="前言不会偷懒的程序员不是好的程序员，学会如何封装是程序员的一条必经之路，那么你真的会封装吗？接下来我们一步步来封装实现属于你自己的一个框架。 Base类都能做些什么Android中有个坑，如果应用被强杀那么Activity的栈信息将会被保存下来，下次恢复直接走到上次被强杀前的页面，这样就出现很多问题了。 善用Base类解决应用强杀造成的空指针问题。空指针场景：如果一个应用在application里">
 
 
 
@@ -373,12 +373,27 @@
 
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>不会偷懒的程序员不是好的程序员，学会如何封装是程序员的一条必经之路，那么你真的会封装吗？<br>接下来我们一步步来封装实现属于你自己的一个框架。</p>
-<h1 id="Base类都能做些什么"><a href="#Base类都能做些什么" class="headerlink" title="Base类都能做些什么"></a>Base类都能做些什么</h1><p>善用Base类解决应用强杀造成的空指针问题。<br>如果一个应用在<code>application</code>里初始化了一个静态变量，并且在第二个页面中用到这个静态变量，如果应用这时候被强杀，再次进来是直接走到第二个页面的，这时候就会造成空指针异常。</p>
+<h1 id="Base类都能做些什么"><a href="#Base类都能做些什么" class="headerlink" title="Base类都能做些什么"></a>Base类都能做些什么</h1><p>Android中有个坑，如果应用被强杀那么Activity的栈信息将会被保存下来，下次恢复直接走到上次被强杀前的页面，这样就出现很多问题了。</p>
+<p><strong>善用Base类解决应用强杀造成的空指针问题。<br>空指针场景：<br>如果一个应用在<code>application</code>里初始化了一个静态变量，并且在主页赋值，第三个页面会用到这个值如果应用这时候被强杀，再次进来是直接走到第三个页面的，这时候就会造成空指针异常。这里文字描述比较苍白，可以自己写个<code>Demo</code>跑一遍，强杀的话就用<code>AS</code>中调试的结束红色按钮，然后在手机上的最近打开的应用里重新打开。</strong></p>
 <blockquote>
 <p>思路： 我们可以将主页<code>Activity</code>设置为<code>singleTask</code>模式，然后在每个页面启动前判断应用是否强杀，如果是的话就重新走到主页，不是的话去初始化页面。</p>
 </blockquote>
 <p>我们在<code>BaseActivity</code>的<code>onCreate</code>方法中加入以下代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">	protected void onCreate(@Nullable Bundle savedInstanceState) &#123;</div><div class="line">		super.onCreate(savedInstanceState);</div><div class="line">		if (MyApplication.AppStatus == -1) &#123;</div><div class="line">			protectApp();</div><div class="line">		&#125; else &#123;</div><div class="line">			setUpData();</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>结合我们的第一个页面<code>SplashActivity</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">   protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">       MyApplication.AppStatus = 0;</div><div class="line">       super.onCreate(savedInstanceState);</div><div class="line">      </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>在<code>SplashActivity</code>的初始化中将<code>MyApplication.AppStatus</code>原先为<code>-1</code>的值改为<code>0</code> ,所以假设应用被强杀再次进入<code>MyApplication.AppStatus</code>值应该是<code>-1</code> ，所以我们判断这个值就可以知道应用是否是强杀掉的。</p>
+<p>现在回头来分析<code>BaseActivity</code>中的代码，假如被强杀走<code>protectApp</code>方法，否则走<code>setUpData</code>方法。<br>那么我们知道了应用是否被强杀之后就应该告诉页面该如何执行，所以<code>protectApp</code>中的代码应该是将APP的页面重新走到主页去。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">protected void protectApp() &#123;</div><div class="line">		Intent intent = new Intent();</div><div class="line">		intent.putExtra(&quot;protectApp&quot;, &quot;protect&quot;);</div><div class="line">		intent.setClass(this, MainActivity.class);</div><div class="line">		startActivity(intent);</div><div class="line"></div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>到目前为止我们的每个页面只要基础自<code>BaseActivity</code>，就实现了在应用被强杀的时候执行<code>protectAPP</code>方法跳转到<code>MainActivity</code>中去</p>
+<p><code>MainActivity</code>由于是<code>SingleTask</code>模式所以会回调<code>OnNewIntent</code>方法，在这个方法中将页面<code>finish</code>并且跳转到欢迎页<code>SplashActivity</code>中去</p>
+<p>那么如果当前页面就是<code>MainActivity</code>呢？ 如果再执行<code>protectAPP</code>方法就不对了，所以我们在<code>MainActivity</code>中去重写<code>protectAPP</code>方法，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">  protected void protectApp() &#123;</div><div class="line">      //当前页面被强杀调用</div><div class="line">      startActivity(new Intent(MainActivity.this , SplashActivity.class));</div><div class="line">      finish();</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>到此为止，我们通过一个<code>BaseActivity</code>就解决了应用被强杀造成的空指针问题。</p>
+<blockquote>
+<p>梳理一遍流程，当app被强杀，当前页面会被直接启动而跳过启动页，调用<code>BaseActivity</code>的<code>onCreate</code>方法，判断到是强杀于是走<code>protectApp</code>方法，跳转到主页， 由于主页是<code>SingleTask</code>模式，会回调<code>onNewIntent</code>方法，并且接收<code>Intent</code>传递的值从而知道应用被强杀了，于是主页跳转回启动页并且<code>finish</code> 。 这样应用在被强杀的时候总能再次打开启动页，空指针的问题就解决了。</p>
+</blockquote>
+<h2 id="Base类还能做些什么"><a href="#Base类还能做些什么" class="headerlink" title="Base类还能做些什么"></a>Base类还能做些什么</h2>
       
     </div>
 
@@ -435,8 +450,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/31/rxjava_notes/" rel="next" title="RxJava学习笔记">
-                <i class="fa fa-chevron-left"></i> RxJava学习笔记
+              <a href="/2017/07/31/retorfit_notes/" rel="next" title="Retrofit学习分析">
+                <i class="fa fa-chevron-left"></i> Retrofit学习分析
               </a>
             
           </div>
@@ -444,6 +459,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/24/mvp/" rel="prev" title="MVP模式探讨">
+                MVP模式探讨 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -545,7 +564,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -622,7 +641,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Base类都能做些什么"><span class="nav-number">2.</span> <span class="nav-text">Base类都能做些什么</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Base类都能做些什么"><span class="nav-number">2.</span> <span class="nav-text">Base类都能做些什么</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Base类还能做些什么"><span class="nav-number">2.1.</span> <span class="nav-text">Base类还能做些什么</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -644,8 +663,8 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
