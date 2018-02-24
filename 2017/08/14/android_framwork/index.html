@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="前言不会偷懒的程序员不是好的程序员，学会如何封装是程序员的一条必经之路，那么你真的会封装吗？接下来我们一步步来封装实现属于你自己的一个框架。 Base类都能做些什么Android中有个坑，如果应用被强杀那么Activity的栈信息将会被保存下来，下次恢复直接走到上次被强杀前的页面，这样就出现很多问题了。 善用Base类解决应用强杀造成的空指针问题。空指针场景：如果一个应用在application里">
+<meta name="description" content="前言不会偷懒的程序员不是好的程序员，学会如何封装是程序员的一条必经之路，那么你真的会封装吗？接下来我们一步步来封装实现属于你自己的一个框架。 Base类都能做些什么Android中有个坑，如果应用被强杀那么Activity的栈信息将会被保存下来，下次恢复直接走到上次被强杀前的页面，这样就出现很多问题了。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android封装思想与应用">
 <meta property="og:url" content="http://gaofeng77.cn/2017/08/14/android_framwork/index.html">
 <meta property="og:site_name" content="Gao Feng">
-<meta property="og:description" content="前言不会偷懒的程序员不是好的程序员，学会如何封装是程序员的一条必经之路，那么你真的会封装吗？接下来我们一步步来封装实现属于你自己的一个框架。 Base类都能做些什么Android中有个坑，如果应用被强杀那么Activity的栈信息将会被保存下来，下次恢复直接走到上次被强杀前的页面，这样就出现很多问题了。 善用Base类解决应用强杀造成的空指针问题。空指针场景：如果一个应用在application里">
+<meta property="og:description" content="前言不会偷懒的程序员不是好的程序员，学会如何封装是程序员的一条必经之路，那么你真的会封装吗？接下来我们一步步来封装实现属于你自己的一个框架。 Base类都能做些什么Android中有个坑，如果应用被强杀那么Activity的栈信息将会被保存下来，下次恢复直接走到上次被强杀前的页面，这样就出现很多问题了。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-14T06:36:08.153Z">
+<meta property="og:updated_time" content="2018-02-24T02:27:35.440Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android封装思想与应用">
-<meta name="twitter:description" content="前言不会偷懒的程序员不是好的程序员，学会如何封装是程序员的一条必经之路，那么你真的会封装吗？接下来我们一步步来封装实现属于你自己的一个框架。 Base类都能做些什么Android中有个坑，如果应用被强杀那么Activity的栈信息将会被保存下来，下次恢复直接走到上次被强杀前的页面，这样就出现很多问题了。 善用Base类解决应用强杀造成的空指针问题。空指针场景：如果一个应用在application里">
+<meta name="twitter:description" content="前言不会偷懒的程序员不是好的程序员，学会如何封装是程序员的一条必经之路，那么你真的会封装吗？接下来我们一步步来封装实现属于你自己的一个框架。 Base类都能做些什么Android中有个坑，如果应用被强杀那么Activity的栈信息将会被保存下来，下次恢复直接走到上次被强杀前的页面，这样就出现很多问题了。">
 
 
 
@@ -373,8 +373,7 @@
 
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>不会偷懒的程序员不是好的程序员，学会如何封装是程序员的一条必经之路，那么你真的会封装吗？<br>接下来我们一步步来封装实现属于你自己的一个框架。</p>
-<h1 id="Base类都能做些什么"><a href="#Base类都能做些什么" class="headerlink" title="Base类都能做些什么"></a>Base类都能做些什么</h1><p>Android中有个坑，如果应用被强杀那么Activity的栈信息将会被保存下来，下次恢复直接走到上次被强杀前的页面，这样就出现很多问题了。</p>
-<p><strong>善用Base类解决应用强杀造成的空指针问题。<br>空指针场景：<br>如果一个应用在<code>application</code>里初始化了一个静态变量，并且在主页赋值，第三个页面会用到这个值如果应用这时候被强杀，再次进来是直接走到第三个页面的，这时候就会造成空指针异常。这里文字描述比较苍白，可以自己写个<code>Demo</code>跑一遍，强杀的话就用<code>AS</code>中调试的结束红色按钮，然后在手机上的最近打开的应用里重新打开。</strong></p>
+<h1 id="Base类都能做些什么"><a href="#Base类都能做些什么" class="headerlink" title="Base类都能做些什么"></a>Base类都能做些什么</h1><p>Android中有个坑，如果应用被强杀那么Activity的栈信息将会被保存下来，下次恢复直接走到上次被强杀前的页面，这样就出现很多问题了。<br><a id="more"></a><br><strong>善用Base类解决应用强杀造成的空指针问题。<br>空指针场景：<br>如果一个应用在<code>application</code>里初始化了一个静态变量，并且在主页赋值，第三个页面会用到这个值如果应用这时候被强杀，再次进来是直接走到第三个页面的，这时候就会造成空指针异常。这里文字描述比较苍白，可以自己写个<code>Demo</code>跑一遍，强杀的话就用<code>AS</code>中调试的结束红色按钮，然后在手机上的最近打开的应用里重新打开。</strong></p>
 <blockquote>
 <p>思路： 我们可以将主页<code>Activity</code>设置为<code>singleTask</code>模式，然后在每个页面启动前判断应用是否强杀，如果是的话就重新走到主页，不是的话去初始化页面。</p>
 </blockquote>
