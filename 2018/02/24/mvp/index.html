@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Gao Feng">
 <meta property="og:description" content="前言  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！  MVP模式到底是什么？  个人理解MVP模式就是将数据层与视图层彻底分离，增加耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。 简单描述 MVP顾名思义就是分为 M层、 V层、 P层 ，  M层是数据层，负责开启网络请求或者从数据库等拉取数据， V层">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-24T02:09:32.580Z">
+<meta property="og:updated_time" content="2018-02-24T02:24:47.181Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MVP模式探讨">
 <meta name="twitter:description" content="前言  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！  MVP模式到底是什么？  个人理解MVP模式就是将数据层与视图层彻底分离，增加耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。 简单描述 MVP顾名思义就是分为 M层、 V层、 P层 ，  M层是数据层，负责开启网络请求或者从数据库等拉取数据， V层">
@@ -388,32 +388,29 @@
 <blockquote>
 <p>我们简单的看下一个代码， 业务大致就是一个页面请求列表数据，用MVP模式改造如下：</p>
 <ol>
-<li>View层告诉P层，我想看最近热映的十部电影都有哪些</li>
+<li>View层告诉P层，我想看最近热映的十部电影都有哪些<br>``<br> //View层<br> public class MovieActivity implements IMovieView{</li>
 </ol>
 </blockquote>
-<pre><code>   //View层
-public class MovieActivity implements IMovieView{
+<pre><code>....
+MoviePresenter mMoviePresenter;
 
-  ....
-  MoviePresenter mMoviePresenter;
+ @Override  
+public void onCreate(Bundle savedInstanceState) {  
+mMoviePresenter = new MoviePresenter(this);//构造方法的参数为IView接口
+mMoviePresenter.getPlayingMovie(10);
+ }
 
-   @Override  
-   public void onCreate(Bundle savedInstanceState) {  
- mMoviePresenter = new MoviePresenter(this);//构造方法的参数为IView接口
- mMoviePresenter.getPlayingMovie(10);
-   }
-
-   ....
-}
-</code></pre><hr>
+ ....
+ }
+</code></pre><p>`</p>
 <p>P层告诉M层， V他要看最近的十部电影，你给我弄过来</p>
-<pre><code>Presenter层
-public class MoviePresenter {
+<pre><code> Presenter层
+ public class MoviePresenter {
 
-private IMovieView mIView;
+ private IMovieView mIView;
 
-public MoviePresenter(IMovieView iMovieView) {
-mIView = iMovieView
+ public MoviePresenter(IMovieView iMovieView) {
+ mIView = iMovieView
 }
 
 //获取正在上映的电影
@@ -425,8 +422,7 @@ MovieModel.getInstance.getPlayingMovie(count, ...);
 
 ....
 }
-</code></pre><hr>
-<p>M层开始网络请求数据，返回数据通知P层</p>
+</code></pre><p>M层开始网络请求数据，返回数据通知P层</p>
 <pre><code>//Model层
 public class MovieModel {
 
@@ -441,8 +437,7 @@ Observable observable = RetrofitUtil.getApiService().getPlayingMovie(count);
 RetrofitUtil.composeToSubscribe(observable, observer, lifecycleSubject);
 }
 }
-</code></pre><hr>
-<p>P层拿到M层返回的数据通过接口回调返回给V层 ，整个过程结束。</p>
+</code></pre><p>P层拿到M层返回的数据通过接口回调返回给V层 ，整个过程结束。</p>
 <pre><code>//Presenter层
 public class MoviePresenter {
 
@@ -484,7 +479,7 @@ void getMovieFail(int status, String desc);
 
 }
 </code></pre><hr>
-<pre><code>    //View层（实现回调接口IMovieView中的方法）
+<pre><code>//View层（实现回调接口IMovieView中的方法）
 
 public class MovieActivity implements IMovieView{
 

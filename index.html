@@ -394,32 +394,29 @@
 <blockquote>
 <p>我们简单的看下一个代码， 业务大致就是一个页面请求列表数据，用MVP模式改造如下：</p>
 <ol>
-<li>View层告诉P层，我想看最近热映的十部电影都有哪些</li>
+<li>View层告诉P层，我想看最近热映的十部电影都有哪些<br>``<br> //View层<br> public class MovieActivity implements IMovieView{</li>
 </ol>
 </blockquote>
-<pre><code>   //View层
-public class MovieActivity implements IMovieView{
+<pre><code>....
+MoviePresenter mMoviePresenter;
 
-  ....
-  MoviePresenter mMoviePresenter;
+ @Override  
+public void onCreate(Bundle savedInstanceState) {  
+mMoviePresenter = new MoviePresenter(this);//构造方法的参数为IView接口
+mMoviePresenter.getPlayingMovie(10);
+ }
 
-   @Override  
-   public void onCreate(Bundle savedInstanceState) {  
- mMoviePresenter = new MoviePresenter(this);//构造方法的参数为IView接口
- mMoviePresenter.getPlayingMovie(10);
-   }
-
-   ....
-}
-</code></pre><hr>
+ ....
+ }
+</code></pre><p>`</p>
 <p>P层告诉M层， V他要看最近的十部电影，你给我弄过来</p>
-<pre><code>Presenter层
-public class MoviePresenter {
+<pre><code> Presenter层
+ public class MoviePresenter {
 
-private IMovieView mIView;
+ private IMovieView mIView;
 
-public MoviePresenter(IMovieView iMovieView) {
-mIView = iMovieView
+ public MoviePresenter(IMovieView iMovieView) {
+ mIView = iMovieView
 }
 
 //获取正在上映的电影
@@ -431,8 +428,7 @@ MovieModel.getInstance.getPlayingMovie(count, ...);
 
 ....
 }
-</code></pre><hr>
-<p>M层开始网络请求数据，返回数据通知P层</p>
+</code></pre><p>M层开始网络请求数据，返回数据通知P层</p>
 <pre><code>//Model层
 public class MovieModel {
 
@@ -447,8 +443,7 @@ Observable observable = RetrofitUtil.getApiService().getPlayingMovie(count);
 RetrofitUtil.composeToSubscribe(observable, observer, lifecycleSubject);
 }
 }
-</code></pre><hr>
-<p>P层拿到M层返回的数据通过接口回调返回给V层 ，整个过程结束。</p>
+</code></pre><p>P层拿到M层返回的数据通过接口回调返回给V层 ，整个过程结束。</p>
 <pre><code>//Presenter层
 public class MoviePresenter {
 
@@ -490,7 +485,7 @@ void getMovieFail(int status, String desc);
 
 }
 </code></pre><hr>
-<pre><code>    //View层（实现回调接口IMovieView中的方法）
+<pre><code>//View层（实现回调接口IMovieView中的方法）
 
 public class MovieActivity implements IMovieView{
 
