@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="前言  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！  MVP模式到底是什么？  个人理解MVP模式就是将数据层与视图层彻底分离，增加耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。">
+<meta name="description" content="前言  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！  MVP模式到底是什么？  个人理解MVP模式就是将数据层与视图层彻底分离，降低耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MVP模式探讨">
 <meta property="og:url" content="http://gaofeng77.cn/2018/02/24/mvp/index.html">
 <meta property="og:site_name" content="Gao Feng">
-<meta property="og:description" content="前言  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！  MVP模式到底是什么？  个人理解MVP模式就是将数据层与视图层彻底分离，增加耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。">
+<meta property="og:description" content="前言  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！  MVP模式到底是什么？  个人理解MVP模式就是将数据层与视图层彻底分离，降低耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-24T02:40:32.141Z">
+<meta property="og:updated_time" content="2018-02-24T07:07:13.809Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MVP模式探讨">
-<meta name="twitter:description" content="前言  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！  MVP模式到底是什么？  个人理解MVP模式就是将数据层与视图层彻底分离，增加耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。">
+<meta name="twitter:description" content="前言  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！  MVP模式到底是什么？  个人理解MVP模式就是将数据层与视图层彻底分离，降低耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。">
 
 
 
@@ -373,7 +373,7 @@
 
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！ </p>
-<h1 id="MVP模式到底是什么？"><a href="#MVP模式到底是什么？" class="headerlink" title="MVP模式到底是什么？"></a>MVP模式到底是什么？</h1><p>  个人理解MVP模式就是将数据层与视图层彻底分离，增加耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。<br><a id="more"></a></p>
+<h1 id="MVP模式到底是什么？"><a href="#MVP模式到底是什么？" class="headerlink" title="MVP模式到底是什么？"></a>MVP模式到底是什么？</h1><p>  个人理解MVP模式就是将数据层与视图层彻底分离，降低耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。<br><a id="more"></a></p>
 <h2 id="简单描述"><a href="#简单描述" class="headerlink" title="简单描述"></a>简单描述</h2><ul>
 <li>MVP顾名思义就是分为 M层、 V层、 P层 ，  M层是数据层，负责开启网络请求或者从数据库等拉取数据， V层是视图层，用于渲染界面展示视图的，而P层就在这两个层之间充当桥梁，连接这两个层，至此，M层与V层相互独立，通过一个P层，视图层专心渲染视图，数据层专心拉取数据，分工明确。</li>
 </ul>
