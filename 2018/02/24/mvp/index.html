@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Gao Feng">
 <meta property="og:description" content="前言  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！  MVP模式到底是什么？  个人理解MVP模式就是将数据层与视图层彻底分离，增加耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-24T02:29:10.581Z">
+<meta property="og:updated_time" content="2018-02-24T02:32:39.584Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MVP模式探讨">
 <meta name="twitter:description" content="前言  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！  MVP模式到底是什么？  个人理解MVP模式就是将数据层与视图层彻底分离，增加耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。">
@@ -431,14 +431,14 @@ public class MovieModel {
 ...
 
 //开启网络请求获取正在上映的电影
-public void getPlayingMovie(int count, HttpObserver&lt;List&lt;MovieRes&gt;&gt;  observer,  
- PublishSubject&lt;LifeCycleEvent&gt; lifecycleSubject) {
+public void getPlayingMovie(int count,  HttpObserver&lt;List&lt;MovieRes&gt;&gt;  observer,  
+PublishSubject&lt;LifeCycleEvent&gt; lifecycleSubject) {
 
 //开启网络请求，结果返回后通过传入的observer回调给P层
 Observable observable = RetrofitUtil.getApiService().getPlayingMovie(count);
-RetrofitUtil.composeToSubscribe(observable, observer, lifecycleSubject);
+  RetrofitUtil.composeToSubscribe(observable, observer, lifecycleSubject);
 }
-}
+  }
 </code></pre><p>P层拿到M层返回的数据通过接口回调返回给V层 ，整个过程结束。</p>
 <pre><code>//Presenter层
 public class MoviePresenter {
@@ -450,7 +450,7 @@ public void getPlayingMovie(int count) {
 
 //通知M层开启请求
 MovieModel.getInstance.getPlayingMovie(count, new HttpObserver&lt;List&lt;MovieRes&gt;&gt;() {
-@Override
+ @Override
 public void onNext(String title, List&lt;MovieRes&gt; list) {
 
 //通过接口IView将成功的结果回调给V层
@@ -466,10 +466,10 @@ public void onError(int errType, String errMessage) {
 if (mIView != null) {
 mIView.getMovieFail(errType, errMessage);
 }
-}
+ }
 
-});
-}
+ });
+   }
 </code></pre><hr>
 <pre><code>//IView接口代码，用于Presenter层与View层的交互
 public interface IMovieView extends IBaseView {
@@ -504,7 +504,7 @@ mRvMovie.setHasFixedSize(false);
 mRvMovie.setAdapter(mMovieAdapter);
 }
 
-}
+ }
 
 //网络请求失败的回调
 @Override
@@ -514,7 +514,7 @@ getLoadLayout().setLayoutState(State.FAILED);
 }
 
    ...
-}
+ }
 </code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>  MVP模式相对于MVC模式最大的不同就是，MVC中， M层与V层是相通的，而MVP中是不相通的。 </p>
 
       
