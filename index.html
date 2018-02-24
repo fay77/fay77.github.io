@@ -411,11 +411,6 @@ public class MovieActivity implements IMovieView{
 
    ....
 }
-
-
-
-
-`
 </code></pre><hr>
 <p>P层告诉M层， V他要看最近的十部电影，你给我弄过来</p>
 <pre><code>Presenter层
@@ -455,8 +450,9 @@ RetrofitUtil.composeToSubscribe(observable, observer, lifecycleSubject);
 </code></pre><hr>
 <p>P层拿到M层返回的数据通过接口回调返回给V层 ，整个过程结束。</p>
 <pre><code>//Presenter层
-</code></pre><p>public class MoviePresenter {</p>
-<pre><code>    ....
+public class MoviePresenter {
+
+....
 
 //获取正在上映的电影
 public void getPlayingMovie(int count) {
@@ -483,9 +479,6 @@ mIView.getMovieFail(errType, errMessage);
 
 });
 }
-
-....
-}
 </code></pre><hr>
 <pre><code>//IView接口代码，用于Presenter层与View层的交互
 public interface IMovieView extends IBaseView {
@@ -497,7 +490,7 @@ void getMovieFail(int status, String desc);
 
 }
 </code></pre><hr>
-<pre><code>//View层（实现回调接口IMovieView中的方法）
+<pre><code>    //View层（实现回调接口IMovieView中的方法）
 
 public class MovieActivity implements IMovieView{
 
