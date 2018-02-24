@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Gao Feng">
 <meta property="og:description" content="前言  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！  MVP模式到底是什么？  个人理解MVP模式就是将数据层与视图层彻底分离，增加耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-24T02:27:25.675Z">
+<meta property="og:updated_time" content="2018-02-24T02:29:10.581Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MVP模式探讨">
 <meta name="twitter:description" content="前言  决定重写捋一遍android的各个技术点，常用的模式框架等等，就从这第一篇开始吧！  MVP模式到底是什么？  个人理解MVP模式就是将数据层与视图层彻底分离，增加耦合性，简洁代码，缺点就是随之会增加很多类、接口文件。 不过。。。跟现在项目的0框架相比真的舒服很多了。">
@@ -388,10 +388,13 @@
 <blockquote>
 <p>我们简单的看下一个代码， 业务大致就是一个页面请求列表数据，用MVP模式改造如下：</p>
 <ol>
-<li>View层告诉P层，我想看最近热映的十部电影都有哪些<br>``<br> //View层<br> public class MovieActivity implements IMovieView{</li>
+<li>View层告诉P层，我想看最近热映的十部电影都有哪些</li>
 </ol>
 </blockquote>
-<pre><code>....
+<pre><code>//View层
+public class MovieActivity implements IMovieView{
+
+....
 MoviePresenter mMoviePresenter;
 
  @Override  
@@ -402,8 +405,7 @@ mMoviePresenter.getPlayingMovie(10);
 
  ....
  }
-</code></pre><p>`</p>
-<p>P层告诉M层， V他要看最近的十部电影，你给我弄过来</p>
+</code></pre><p>P层告诉M层， V他要看最近的十部电影，你给我弄过来</p>
 <pre><code> Presenter层
  public class MoviePresenter {
 
