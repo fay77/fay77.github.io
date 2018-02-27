@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="前言最近在看OkHttp源码，在整个OkHttp中最重要也是最核心的就是拦截器了，简单看拦截器似乎就是一个个实现Interceptor接口的类，再分别在类中实现相应的逻辑，直到我看到下面的代码 private Response getResponseWithInterceptorChain() throws IOException {   // Build a full stack of int">
+<meta name="description" content="前言">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Okhttp源码应用到的责任链模式">
 <meta property="og:url" content="http://gaofeng77.cn/2018/02/27/zeren_lian/index.html">
 <meta property="og:site_name" content="Gao Feng">
-<meta property="og:description" content="前言最近在看OkHttp源码，在整个OkHttp中最重要也是最核心的就是拦截器了，简单看拦截器似乎就是一个个实现Interceptor接口的类，再分别在类中实现相应的逻辑，直到我看到下面的代码 private Response getResponseWithInterceptorChain() throws IOException {   // Build a full stack of int">
+<meta property="og:description" content="前言">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-27T07:39:25.664Z">
+<meta property="og:updated_time" content="2018-02-27T07:40:28.570Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Okhttp源码应用到的责任链模式">
-<meta name="twitter:description" content="前言最近在看OkHttp源码，在整个OkHttp中最重要也是最核心的就是拦截器了，简单看拦截器似乎就是一个个实现Interceptor接口的类，再分别在类中实现相应的逻辑，直到我看到下面的代码 private Response getResponseWithInterceptorChain() throws IOException {   // Build a full stack of int">
+<meta name="twitter:description" content="前言">
 
 
 
@@ -372,8 +372,8 @@
       
 
       
-        <a id="more"></a>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在看<code>OkHttp</code>源码，在整个<code>OkHttp</code>中最重要也是最核心的就是拦截器了，简单看拦截器似乎就是一个个实现<code>Interceptor</code>接口的类，再分别在类中实现相应的逻辑，直到我看到下面的代码</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><a id="more"></a>
+<p>最近在看<code>OkHttp</code>源码，在整个<code>OkHttp</code>中最重要也是最核心的就是拦截器了，简单看拦截器似乎就是一个个实现<code>Interceptor</code>接口的类，再分别在类中实现相应的逻辑，直到我看到下面的代码</p>
 <pre><code>private Response getResponseWithInterceptorChain() throws IOException {
   // Build a full stack of interceptors.
   List&lt;Interceptor&gt; interceptors = new ArrayList&lt;&gt;();
