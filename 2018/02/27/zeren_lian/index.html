@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Gao Feng">
 <meta property="og:description" content="前言">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-27T07:40:28.570Z">
+<meta property="og:updated_time" content="2018-02-27T07:49:11.933Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Okhttp源码应用到的责任链模式">
 <meta name="twitter:description" content="前言">
@@ -409,7 +409,7 @@
     }
 }
 </code></pre><hr>
-<p>最核心的类， 处理类，注意<code>this.superior.approveRequest(browRequest);</code>简单看似乎是自己调自己的方法，其实不然，这句代码将处理交给了下一个对象，类似击鼓传花，将花递给了下一个</p>
+<p>最核心的类， 处理类，注意<code>this.superior.approveRequest(browRequest);</code>简单看似乎是自己调自己的方法，其实不然，这句代码将处理交给了下一个对象<code>setSuperior()</code>这个方法就是设置下一个传递对象，类似击鼓传花，将花递给了下一个</p>
 <pre><code>abstract class AbstractClerk {
     private AbstractClerk superior = null;
     protected String type;
