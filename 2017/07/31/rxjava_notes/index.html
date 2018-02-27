@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="前言之前学了一段时间的RxJava，由于项目中没用到过，回头看居然又忘了，索性今天再去捋一遍吧。注：只记录学习笔记，详细的不赘述。 先贴上个人觉得RxJava讲的最好的一个系列： http://www.jianshu.com/p/464fa025229e">
+<meta name="description" content="前言">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RxJava学习笔记">
 <meta property="og:url" content="http://gaofeng77.cn/2017/07/31/rxjava_notes/index.html">
 <meta property="og:site_name" content="Gao Feng">
-<meta property="og:description" content="前言之前学了一段时间的RxJava，由于项目中没用到过，回头看居然又忘了，索性今天再去捋一遍吧。注：只记录学习笔记，详细的不赘述。 先贴上个人觉得RxJava讲的最好的一个系列： http://www.jianshu.com/p/464fa025229e">
+<meta property="og:description" content="前言">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-31T11:00:12.928Z">
+<meta property="og:updated_time" content="2018-02-27T07:42:54.571Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxJava学习笔记">
-<meta name="twitter:description" content="前言之前学了一段时间的RxJava，由于项目中没用到过，回头看居然又忘了，索性今天再去捋一遍吧。注：只记录学习笔记，详细的不赘述。 先贴上个人觉得RxJava讲的最好的一个系列： http://www.jianshu.com/p/464fa025229e">
+<meta name="twitter:description" content="前言">
 
 
 
@@ -372,8 +372,9 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前学了一段时间的RxJava，由于项目中没用到过，回头看居然又忘了，索性今天再去捋一遍吧。<br>注：只记录学习笔记，详细的不赘述。</p>
-<p>先贴上个人觉得RxJava讲的最好的一个系列： <a href="http://www.jianshu.com/p/464fa025229e" target="_blank" rel="external">http://www.jianshu.com/p/464fa025229e</a><br><a id="more"></a></p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><a id="more"></a>
+<p>之前学了一段时间的RxJava，由于项目中没用到过，回头看居然又忘了，索性今天再去捋一遍吧。<br>注：只记录学习笔记，详细的不赘述。</p>
+<p>先贴上个人觉得RxJava讲的最好的一个系列： <a href="http://www.jianshu.com/p/464fa025229e" target="_blank" rel="external">http://www.jianshu.com/p/464fa025229e</a></p>
 <h3 id="ObservableEmitter"><a href="#ObservableEmitter" class="headerlink" title="ObservableEmitter"></a>ObservableEmitter</h3><p> ObservableEmitter 发射器，可以发出<code>onNext(T value)</code>、<code>onComplete()</code>和<code>onError(Throwable error)</code>必须遵循的规则：</p>
 <blockquote>
 <p>上游即<code>Observable</code>在发送<code>onNext</code>、 <code>onComplete</code> 、<code>onError</code>之后均可以持续发送接下来的事件，也可以不发送<code>onComplete</code>、但是<code>onComplete</code>和<code>onError</code>不可以同时存在并且唯一。<br>下游接收到<code>onComplete</code>、<code>onError</code>之后不再继续接收。</p>
