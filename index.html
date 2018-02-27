@@ -279,6 +279,271 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://gaofeng77.cn/2018/02/27/zeren_lian/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feng Gao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/image/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gao Feng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/02/27/zeren_lian/" itemprop="url">
+                  Okhttp源码应用到的责任链模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-27T15:32:54+08:00">
+                2018-02-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/27/zeren_lian/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/02/27/zeren_lian/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/02/27/zeren_lian/" class="leancloud_visitors" data-flag-title="Okhttp源码应用到的责任链模式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在看<code>OkHttp</code>源码，在整个<code>OkHttp</code>中最重要也是最核心的就是拦截器了，简单看拦截器似乎就是一个个实现<code>Interceptor</code>接口的类，再分别在类中实现相应的逻辑，直到我看到下面的代码</p>
+<pre><code>private Response getResponseWithInterceptorChain() throws IOException {
+  // Build a full stack of interceptors.
+  List&lt;Interceptor&gt; interceptors = new ArrayList&lt;&gt;();
+  interceptors.addAll(client.interceptors());
+  interceptors.add(retryAndFollowUpInterceptor);
+  interceptors.add(new BridgeInterceptor(client.cookieJar()));
+  interceptors.add(new CacheInterceptor(client.internalCache()));
+  interceptors.add(new ConnectInterceptor(client));
+  if (!retryAndFollowUpInterceptor.isForWebSocket()) {
+    interceptors.addAll(client.networkInterceptors());
+  }
+  interceptors.add(new CallServerInterceptor(
+  retryAndFollowUpInterceptor.isForWebSocket()));
+
+  Interceptor.Chain chain = new RealInterceptorChain    (
+      interceptors, null, null, null, 0, originalRequest);
+  return chain.proceed(originalRequest);
+}
+</code></pre><p><code>上述代码中加入了很多个拦截器，这么多拦截器是怎么一个个实现的？</code></p>
+<h1 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h1><p><strong>责任链模式将各个拦截器连接环环相扣，最终完成一次网络请求。</strong></p>
+<hr>
+<p><strong>一个例子说明责任链应用场景</strong></p>
+<pre><code>public class BrowRequest {
+    private int requestMoney;
+
+    public BrowRequest(int money) {
+        System.out.println(&quot;有新请求，需要借款&quot; + money + &quot;元&quot;);
+        requestMoney = money;
+    }
+
+    public int getRequestMoney() {
+        return requestMoney;
+    }
+}
+</code></pre><hr>
+<p>最核心的类， 处理类，注意<code>this.superior.approveRequest(browRequest);</code>简单看似乎是自己调自己的方法，其实不然，这句代码将处理交给了下一个对象，类似击鼓传花，将花递给了下一个</p>
+<pre><code>abstract class AbstractClerk {
+    private AbstractClerk superior = null;
+    protected String type;
+    public abstract int getLimit();
+
+    public void setSuperior(AbstractClerk superior) {
+        this.superior = superior;
+    }
+
+    public void approveRequest(BrowRequest browRequest) {
+        if (getLimit() &gt;= browRequest.getRequestMoney()) {
+            System.out.println(getType() + &quot;同意借款请求&quot;);
+        } else {
+            if (this.superior != null) {
+                //传递给下一个使用
+                this.superior.approveRequest(browRequest);
+            } else {
+                System.out.println(&quot;没有人能够同意借款请求&quot;);
+            }
+        }
+    }
+
+    public String getType() {
+
+        return type;
+
+    }
+}
+</code></pre><hr>
+<p>接着就比较简单了，定义我们的具体类，继承处理类</p>
+<pre><code>public class Clerk extends AbstractClerk {
+
+    public Clerk() {
+        super.type = &quot;职员&quot;;
+    }
+
+    @Override
+    public int getLimit() {
+        return 5000;
+    }
+}
+
+
+public class Leader extends AbstractClerk {
+    public Leader() {
+        super.type = &quot;组长&quot;;
+    }
+
+    @Override
+    public int getLimit() {
+        return 20000;
+    }
+}
+
+
+public class Manager extends AbstractClerk {
+    public Manager() {
+        super.type = &quot;经理&quot;;
+    }
+
+    @Override
+    public int getLimit() {
+        return 100000;
+    }
+}
+</code></pre><hr>
+<p>最后在客户端调用下就行了</p>
+<pre><code>    public class Client {
+    public static void main(String[] args) {
+        AbstractClerk clerk = new Clerk();
+        AbstractClerk leader = new Leader();
+        AbstractClerk manager = new Manager();
+
+        clerk.setSuperior(leader);
+        leader.setSuperior(manager);
+
+
+        //有人借款10000元
+        clerk.approveRequest(new BrowRequest(10000));
+
+        //有人借款111000元
+        clerk.approveRequest(new BrowRequest(100000));
+    }
+}
+</code></pre><p>可以看到责任链跟现实生活中的击鼓传花游戏非常相似，很多对象由每一个对象对其下家的引用而连接起来形成一条链。</p>
+<p>最核心的方法是处理类， 一般处理类会包含一个指向下一处理类的成员变量，和一个处理请求的方法 ， 如果符合条件就自己处理，否则就传递给下一个处理。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://gaofeng77.cn/2018/02/24/mvp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -575,154 +840,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://gaofeng77.cn/2017/07/31/retorfit_notes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Feng Gao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/image/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gao Feng">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/31/retorfit_notes/" itemprop="url">
-                  Retrofit学习分析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-31T13:32:54+08:00">
-                2017-07-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/31/retorfit_notes/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/31/retorfit_notes/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/07/31/retorfit_notes/" class="leancloud_visitors" data-flag-title="Retrofit学习分析">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="Retrofit是如何通过注解来设置okhttp的配置的呢"><a href="#Retrofit是如何通过注解来设置okhttp的配置的呢" class="headerlink" title="Retrofit是如何通过注解来设置okhttp的配置的呢"></a>Retrofit是如何通过注解来设置okhttp的配置的呢</h3><p>Retrofit通过注解的方式来配置http请求，即使不用okhttp改用httpClient上层也不需要去修改。</p>
-<p>带着多种疑问去看源码<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/31/retorfit_notes/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://gaofeng77.cn/2017/07/31/rxjava_notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -826,6 +943,154 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/07/31/rxjava_notes/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://gaofeng77.cn/2017/07/31/retorfit_notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Feng Gao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/image/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gao Feng">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/31/retorfit_notes/" itemprop="url">
+                  Retrofit学习分析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-31T13:32:54+08:00">
+                2017-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/31/retorfit_notes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/31/retorfit_notes/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/07/31/retorfit_notes/" class="leancloud_visitors" data-flag-title="Retrofit学习分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="Retrofit是如何通过注解来设置okhttp的配置的呢"><a href="#Retrofit是如何通过注解来设置okhttp的配置的呢" class="headerlink" title="Retrofit是如何通过注解来设置okhttp的配置的呢"></a>Retrofit是如何通过注解来设置okhttp的配置的呢</h3><p>Retrofit通过注解的方式来配置http请求，即使不用okhttp改用httpClient上层也不需要去修改。</p>
+<p>带着多种疑问去看源码<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/31/retorfit_notes/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1201,7 +1466,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
