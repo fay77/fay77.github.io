@@ -93,29 +93,17 @@
 
 
 
-<meta name="description" content="前言">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GitHub + Hexo搭建个人博客">
-<meta property="og:url" content="http://gaofeng77.cn/2017/07/25/how-to-get-hexo/index.html">
+<meta property="og:title" content="Android中的IPC机制">
+<meta property="og:url" content="http://gaofeng77.cn/2017/07/26/hello-world/index.html">
 <meta property="og:site_name" content="Gao Feng">
-<meta property="og:description" content="前言">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://i.imgur.com/lgL0TVv.jpg">
-<meta property="og:image" content="http://i.imgur.com/1bvOqTh.png">
-<meta property="og:image" content="http://i.imgur.com/xDRJvHT.png">
-<meta property="og:image" content="http://i.imgur.com/FtgFnxj.jpg">
-<meta property="og:image" content="http://i.imgur.com/ez4ypru.png">
-<meta property="og:image" content="http://i.imgur.com/LCTN8zm.png">
-<meta property="og:image" content="http://i.imgur.com/R6M0kTM.png">
-<meta property="og:image" content="http://i.imgur.com/MVzNTim.jpg">
-<meta property="og:image" content="http://i.imgur.com/2ZJJxv2.jpg">
-<meta property="og:image" content="http://i.imgur.com/ppGSYAf.png">
-<meta property="og:image" content="http://i.imgur.com/WffikCl.png">
-<meta property="og:updated_time" content="2018-02-27T07:42:22.571Z">
+<meta property="og:image" content="http://i.imgur.com/gcTmPam.jpg">
+<meta property="og:image" content="http://i.imgur.com/9Ek0nK3.png">
+<meta property="og:updated_time" content="2017-07-26T08:28:50.347Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GitHub + Hexo搭建个人博客">
-<meta name="twitter:description" content="前言">
-<meta name="twitter:image" content="http://i.imgur.com/lgL0TVv.jpg">
+<meta name="twitter:title" content="Android中的IPC机制">
+<meta name="twitter:image" content="http://i.imgur.com/gcTmPam.jpg">
 
 
 
@@ -143,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://gaofeng77.cn/2017/07/25/how-to-get-hexo/"/>
+  <link rel="canonical" href="http://gaofeng77.cn/2017/07/26/hello-world/"/>
 
 
 
 
 
-  <title> GitHub + Hexo搭建个人博客 | Gao Feng </title>
+  <title> Android中的IPC机制 | Gao Feng </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -290,7 +278,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://gaofeng77.cn/2017/07/25/how-to-get-hexo/">
+    <link itemprop="mainEntityOfPage" href="http://gaofeng77.cn/2017/07/26/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Feng Gao">
@@ -311,7 +299,7 @@
             
             
               
-                GitHub + Hexo搭建个人博客
+                Android中的IPC机制
               
             
           </h1>
@@ -326,8 +314,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T13:32:54+08:00">
-                2017-07-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-26T12:30:23+08:00">
+                2017-07-26
               </time>
             
 
@@ -345,9 +333,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/07/25/how-to-get-hexo/#comments" itemprop="discussionUrl">
+                <a href="/2017/07/26/hello-world/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/25/how-to-get-hexo/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/07/26/hello-world/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -355,7 +343,7 @@
 
           
           
-             <span id="/2017/07/25/how-to-get-hexo/" class="leancloud_visitors" data-flag-title="GitHub + Hexo搭建个人博客">
+             <span id="/2017/07/26/hello-world/" class="leancloud_visitors" data-flag-title="Android中的IPC机制">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -384,84 +372,72 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><a id="more"></a>
-<p>很早就有搭建博客的想法，最近终于有时间，去网上去搜相关教程，结果各种坑，决定写一篇。</p>
-<p><img src="http://i.imgur.com/lgL0TVv.jpg" style="zoom:10%"></p>
-<p>假设你已经拥有了GitHub以及ssh认证等，去gitHub新建一个仓库，仓库名必须为  <code>yourusername.github.io</code></p>
-<p>如：</p>
-<p><img src="http://i.imgur.com/1bvOqTh.png" alt=""></p>
-<p>创建完了之后先不用管他。</p>
-<h2 id="正式安装Hexo"><a href="#正式安装Hexo" class="headerlink" title="正式安装Hexo"></a>正式安装Hexo</h2><p>在安装Hexo之前需要安装Node.js，直接去官网download无脑安装即可。这里我们主要说Hexo。</p>
-<p>首先创建一个文件夹存放hexo配置，如Blog。</p>
-<p><strong>记住在执行hexo指令前，必须是在刚才存放hexo配置的文件目录下，否则命令无效，所依我们一路cd 到刚才的Blog文件夹下</strong></p>
-<p>执行如下命令安装Hexo：</p>
-<pre><code>sudo npm install -g hexo
-</code></pre><p>初始化然后，执行init命令初始化hexo,命令：</p>
-<pre><code>hexo init
-</code></pre><p>hexo的指令非常少而且简单，现在我们来测下hexo是否成功安装</p>
-<pre><code>hexo g
-</code></pre><p>本地启动<br>我们来预览调试<br>    hexo s<br>浏览器输入 <code>http://localhost:4000</code></p>
-<h4 id="现在回到我们的github"><a href="#现在回到我们的github" class="headerlink" title="现在回到我们的github"></a>现在回到我们的github</h4><ol>
-<li>找到你的仓库，<code>yourusername.github.io</code></li>
-<li>点击仓库的<code>SETTING</code>选项卡</li>
-<li>下拉到<code>GitHub Pages</code>选项中，点击如下图按钮<code>Choose theme</code></li>
-</ol>
-<p><img src="http://i.imgur.com/xDRJvHT.png" alt=""></p>
-<p>点击之后随便选个theme，随后关闭我们的GitHub.</p>
-<h2 id="配置Hexo"><a href="#配置Hexo" class="headerlink" title="配置Hexo"></a>配置Hexo</h2><p>进入我们的Blog文件夹，这里的根目录下有个<code>_config.yml</code>文件，这个叫做<strong>站点配置文件</strong>可以理解成全局的配置文件。</p>
-<p>现在来设置这个配置文件</p>
-<p>这里重点修改内容是整个配置文件的最下面的这么一段：</p>
-<pre><code>deploy:
-
- type: git
-
- repo: git@github.com:fay77/fay77.github.io.git
-
- branch: master
-</code></pre><p><img src="http://i.imgur.com/FtgFnxj.jpg" style="zoom:%"></p>
-<p><strong>需要注意的是所有的冒号后面都要加个空格，否则无效，repo后面跟的是ssh地址，http地址会有问题</strong></p>
-<p>然后执行命令：</p>
-<pre><code>npm install hexo-deployer-git --save
-</code></pre><p>到此为止基本配置都结束了，我们开始部署到gitHub上，执行命令：</p>
-<pre><code>hexo deploy
-</code></pre><p>然后再浏览器中输入<a href="http://fay77.github.io/" target="_blank" rel="external">http://fay77.github.io/</a> 就行了，我的github的账户叫fay77,把这个改成你github的账户名就行了</p>
-<h3 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h3><p>每次部署都按以下三步来进行</p>
+        <p><img src="http://i.imgur.com/gcTmPam.jpg" style="zoom:40%"><br><a id="more"></a></p>
+<h2 id="1-IPC简介"><a href="#1-IPC简介" class="headerlink" title="1.IPC简介"></a>1.IPC简介</h2><p>IPC含义为进程间通信或者跨进程通信，是指两个进程之间进行数据交换的过程 , Android中IPC通信的方式有很多，例如:</p>
 <ul>
-<li><code>hexo clean</code></li>
-<li><code>hexo g</code></li>
-<li><code>hexo d</code></li>
+<li>Binder</li>
+<li>Scoket</li>
 </ul>
-<h2 id="域名绑定"><a href="#域名绑定" class="headerlink" title="域名绑定"></a>域名绑定</h2><p>以上步骤生成的博客地址均以 <code>xxx.github.io</code>为地址的，你也可以更改这个地址，绑定你的域名。</p>
-<h3 id="购买域名"><a href="#购买域名" class="headerlink" title="购买域名"></a>购买域名</h3><p>我用的是dnspod，进入搜索你想要的域名，然后支付。这里很简单不多说。</p>
-<p>点击  <strong>解析</strong> 进入</p>
-<p><img src="http://i.imgur.com/ez4ypru.png" alt=""></p>
-<p>点击  添加记录 选A</p>
-<p><img src="http://i.imgur.com/LCTN8zm.png" alt=""></p>
-<p>这里的ping需要打开cmd执行命令<br>   <code>ping -t fay77github.io</code><br>得到一串ip地址，复制并且粘贴到记录值一栏。 点击确定。</p>
-<p>再次点击添加记录 选CNAME<br>记录值这次填你的github.io那个地址就可以了。</p>
-<h2 id="GitHubPage绑定你的域名"><a href="#GitHubPage绑定你的域名" class="headerlink" title="GitHubPage绑定你的域名"></a>GitHubPage绑定你的域名</h2><p>在blog文件下<br><img src="http://i.imgur.com/R6M0kTM.png" alt=""><br>新建CNAME，里面填入你的域名。 然后执行命令<br>    <code>hexo g</code><br>    <code>hexo d</code></p>
-<p><img src="http://i.imgur.com/MVzNTim.jpg" style="zoom:50%"></p>
-<p>大功告成。 访问你的域名就可以了。</p>
+<p>这里面最有特色的就是<strong>Binder</strong> </p>
+<h2 id="2-Android中的多进程模式"><a href="#2-Android中的多进程模式" class="headerlink" title="2.Android中的多进程模式"></a>2.Android中的多进程模式</h2><h4 id="2-1开启多进程模式"><a href="#2-1开启多进程模式" class="headerlink" title="2.1开启多进程模式"></a>2.1开启多进程模式</h4><p>　　Android中开启多线程模式非常的简单，只要在四大组件(Activity、Service、Receive、ContentProvider)的<code>AndroidMeniFest</code>中指定<code>android:process</code>属性。</p>
+<pre><code>android:process=&quot;com.ryg.chapter_2.remote&quot;
+android:process=&quot;:remote&quot;
+</code></pre><p>　　上面两种写法是有区别的：</p>
+<ol>
+<li><p><code>：</code> 的含义是指在当前线程名前面附加当前的包名，这是一种简写的方法。并且以<code>:</code>开头的进程属于私有进程，其他应用的组件不可以和它跑在同一个进程中。</p>
+</li>
+<li><p><code>andoid:process=&quot;com.ryg.chapter_2.remote&quot;</code>这是完整的写法，该写法的进程属于全局进程，其他应用可以通过共享<code>ShareUid</code>方式和它跑在同一个进程中。</p>
+</li>
+</ol>
 <hr>
-<h2 id="多台电脑同时编写博客"><a href="#多台电脑同时编写博客" class="headerlink" title="多台电脑同时编写博客"></a>多台电脑同时编写博客</h2><p>上面都完成之后你应该正在愉快的编写博客了，当你回家想写点什么，fuck博客的资料全在单位电脑咋办<br><img src="http://i.imgur.com/2ZJJxv2.jpg" alt=""></p>
-<h3 id="利用分支解决多电脑同步博客的问题"><a href="#利用分支解决多电脑同步博客的问题" class="headerlink" title="利用分支解决多电脑同步博客的问题"></a>利用分支解决多电脑同步博客的问题</h3><p>首先我们进入到已经<code>git clone</code>了<code>xxx.github.io</code>仓库了的文件夹中，命令行敲起来，墙裂推荐cmder命令行，wins下的cmd简直跟屎一样。</p>
-<p>二话不说就是一个<code>git pull</code>更新master分支上的内容，随后创建本地分支<code>hexo</code> ，这个名字你可以随便取</p>
-<p><code>git checkout -b hexo</code>创建并且切换到我们本地的<code>hexo</code>分支下，我们要在这个分支下管理所有的博客资源文件，将我们上面，不对是很上面创建的Blog文件整个复制到<code>hexo</code>分支所在的文件夹目录下</p>
-<p>执行<code>git status</code> 会发现blog文件下的东西显示未添加到git， 这里有个小坑</p>
-<p><strong>如果git提示某些文件无法add，我们只要进入那个文件下找到 <code>.git</code> 文件并且删除即可</strong><br>然后<code>commit</code>这些都是git常用指令了，不多说。 </p>
-<p>接下来就是提交blog整个文件到远端了</p>
-<p>执行<code>git push origin hexo:hexo</code> 这里我将远端的分支也命名为<code>hexo</code>了，所以看起来有点变扭，建议命名为<code>remote_hexo</code>用以区分远端和本地。</p>
-<p>到这一步基本就都ok了。  然后我们来看看有分支下的情况下如何更新博客的：</p>
+<h4 id="2-2-多进程模式的运行机制"><a href="#2-2-多进程模式的运行机制" class="headerlink" title="2.2 多进程模式的运行机制"></a>2.2 多进程模式的运行机制</h4><p>一句话形容多进程：</p>
+<blockquote>
+<p>当开启了多进程以后，各种奇怪的现象都出现了</p>
+</blockquote>
+<p>　　分析：我们知道Android会为每个进程分配一个独立的虚拟机，不同的虚拟机在内存分配上有不同的地址控件，这就导致在不同虚拟机中访问同一个类的对象产生多份副本。</p>
+<p>多进程会造成以下的问题：</p>
+<ul>
+<li>静态成员和单例模式完全失效</li>
+<li>线程同步机制完全失效</li>
+<li>SharedPreferences的可靠性下降</li>
+<li>Application会多次创建</li>
+</ul>
+<hr>
+<p>以上是多进程所带来的问题，但是我们不能因为多进程有很多问题就不去正视他，为了解决这个问题，系统提供了很多跨进程通信方法：</p>
+<ul>
+<li>通过<strong>Intent</strong>来传递数据</li>
+<li>共享文件和<strong>sharedPerences</strong></li>
+<li>基于<strong>Binder</strong>的<strong>Message</strong>和<strong>AIDL</strong></li>
+<li><strong>Socket</strong>等等</li>
+</ul>
+<p>为了更好的理解IPC机制，我们先来熟悉一些基础概念，比如：<br><code>Serializable</code><br><code>Paracelabel</code></p>
+<h4 id="2-3-1-Serializable接口"><a href="#2-3-1-Serializable接口" class="headerlink" title="2.3.1 Serializable接口"></a>2.3.1 Serializable接口</h4><p><code>Serializable</code>实现起来非常简单，几乎所有的工作都是系统完成的。如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">    public class User implements Serializable &#123;</div><div class="line">    private static final long serialVersionUID = 321112538042654820L;</div><div class="line">    public int userId;</div><div class="line">    public String userName;</div><div class="line">    public boolean isMale;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用AS的同学会发现<code>serialVersionUID</code>无法自动提示，这是因为Android Studio设置中忽略了这个，需要重新设置下</p>
 <ol>
-<li>进入到<code>git clone</code>了的文件目录下，找到<code>.md</code>也就是你的博客文章，然后修改。</li>
-<li><code>git add</code> <code>git commit</code> <code>git push origin hexo</code>将修改的博文推送到远端<br><img src="http://i.imgur.com/ppGSYAf.png" alt=""><br>你会发现修改的博客文章状态改变了</li>
+<li>File–&gt;Settings–&gt;Editor–&gt;Inspections–&gt;Java–&gt;Serialization issues–&gt;Serializable class without ‘serialVersionUID’ 勾选中该选项即可。</li>
 </ol>
-<p><img src="http://i.imgur.com/WffikCl.png" alt=""></p>
+<p><img src="http://i.imgur.com/9Ek0nK3.png" alt=""></p>
 <ol>
-<li>执行<code>hexo g</code> <code>hexo d</code>,hexo会自动将<code>.md</code>文章转成html等推送到远端的<code>master</code>分支。</li>
+<li>进入实现了Serializable中的类，选中类名，Alt+Enter弹出提示，然后直接导入完成</li>
 </ol>
-<p>建议去github将<code>hexo</code>分支设置为默认分支，这样我们只需要手动管理<code>hexo</code>分支即可，<code>master</code>就交给了<code>hexo</code>去自动管理了。</p>
-
+<p><strong>如何进行对象的序列号和反序列化呢</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">   User user = new User(0, &quot;jack&quot;, true);</div><div class="line">   try &#123;</div><div class="line">       ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(&quot;cache.txt&quot;));</div><div class="line">       objectOutputStream.writeObject(user);</div><div class="line">       objectOutputStream.close();</div><div class="line">   &#125; catch (IOException e) &#123;</div><div class="line">       e.printStackTrace();</div><div class="line">   &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">//反序列化过程</div><div class="line">   try &#123;</div><div class="line">       ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(&quot;cache.txt&quot;));</div><div class="line">       try &#123;</div><div class="line">           User user1 = (User) inputStream.readObject();</div><div class="line">           inputStream.close();</div><div class="line">       &#125; catch (ClassNotFoundException e) &#123;</div><div class="line">           e.printStackTrace();</div><div class="line">       &#125;</div><div class="line">   &#125; catch (IOException e) &#123;</div><div class="line">       e.printStackTrace();</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h4 id="2-3-2-Parcelable接口"><a href="#2-3-2-Parcelable接口" class="headerlink" title="2.3.2 Parcelable接口"></a>2.3.2 Parcelable接口</h4><blockquote>
+<p>Parcelable也是一个接口，同样是实现这个接口就可以实现序列化和反序列化。下面是用法：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">    public class User implements Parcelable &#123;</div><div class="line">    public int userId;</div><div class="line">    public String userName;</div><div class="line">    public boolean isMale;</div><div class="line">    public Book mBook;</div><div class="line"></div><div class="line">    public User(int userId, String userName, boolean isMale, Book book) &#123;</div><div class="line">        this.userId = userId;</div><div class="line">        this.userName = userName;</div><div class="line">        this.isMale = isMale;</div><div class="line">        mBook = book;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    protected User(Parcel in) &#123;</div><div class="line">        userId = in.readInt();</div><div class="line">        userName = in.readString();</div><div class="line">        isMale = in.readByte() != 0;</div><div class="line">        mBook = in.readParcelable(Book.class.getClassLoader());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static final Creator&lt;User&gt; CREATOR = new Creator&lt;User&gt;() &#123;</div><div class="line">        @Override</div><div class="line">        public User createFromParcel(Parcel in) &#123;</div><div class="line">            return new User(in);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public User[] newArray(int size) &#123;</div><div class="line">            return new User[size];</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public int describeContents() &#123;</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void writeToParcel(Parcel dest, int flags) &#123;</div><div class="line">        dest.writeInt(userId);</div><div class="line">        dest.writeString(userName);</div><div class="line">        dest.writeByte((byte) (isMale ? 1 : 0));</div><div class="line">        dest.writeParcelable(mBook, flags);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>所有的工作AS都会有提示只需无脑CTRL ENTER。</p>
+<hr>
+<h4 id="那么两种序列化之间改如何选取呢？"><a href="#那么两种序列化之间改如何选取呢？" class="headerlink" title="那么两种序列化之间改如何选取呢？"></a>那么两种序列化之间改如何选取呢？</h4><ul>
+<li>Serializable是Java中的序列号接口，使用起来简单但是<strong>开销大</strong></li>
+<li>Parcelable是Android中的序列化方式，因此更适合在Android平台，缺点是使用起来稍微麻烦，但是效率很高。<strong>因此首选<code>Parcelable</code></strong> </li>
+</ul>
+<p>但是在以下两种情况下应选<code>Serializable</code></p>
+<ul>
+<li>将对象序列化到存储设备中</li>
+<li>将对象序列化后通过网络传输</li>
+</ul>
+<h2 id="2-3-3-Binder"><a href="#2-3-3-Binder" class="headerlink" title="2.3.3 Binder"></a>2.3.3 Binder</h2>
       
     </div>
 
@@ -518,14 +494,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/07/25/how-to-get-hexo/" rel="next" title="GitHub + Hexo搭建个人博客">
+                <i class="fa fa-chevron-left"></i> GitHub + Hexo搭建个人博客
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/26/hello-world/" rel="prev" title="Android中的IPC机制">
-                Android中的IPC机制 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/31/rxjava_notes/" rel="prev" title="RxJava学习笔记">
+                RxJava学习笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -705,7 +685,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#正式安装Hexo"><span class="nav-number">1.1.</span> <span class="nav-text">正式安装Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#现在回到我们的github"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">现在回到我们的github</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Hexo"><span class="nav-number">1.2.</span> <span class="nav-text">配置Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Notes"><span class="nav-number">1.2.1.</span> <span class="nav-text">Notes</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域名绑定"><span class="nav-number">1.3.</span> <span class="nav-text">域名绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#购买域名"><span class="nav-number">1.3.1.</span> <span class="nav-text">购买域名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHubPage绑定你的域名"><span class="nav-number">1.4.</span> <span class="nav-text">GitHubPage绑定你的域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多台电脑同时编写博客"><span class="nav-number">1.5.</span> <span class="nav-text">多台电脑同时编写博客</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用分支解决多电脑同步博客的问题"><span class="nav-number">1.5.1.</span> <span class="nav-text">利用分支解决多电脑同步博客的问题</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-IPC简介"><span class="nav-number">1.</span> <span class="nav-text">1.IPC简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Android中的多进程模式"><span class="nav-number">2.</span> <span class="nav-text">2.Android中的多进程模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1开启多进程模式"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1开启多进程模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-多进程模式的运行机制"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 多进程模式的运行机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-Serializable接口"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.3.1 Serializable接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-Parcelable接口"><span class="nav-number">2.0.4.</span> <span class="nav-text">2.3.2 Parcelable接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#那么两种序列化之间改如何选取呢？"><span class="nav-number">2.0.5.</span> <span class="nav-text">那么两种序列化之间改如何选取呢？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-3-Binder"><span class="nav-number">3.</span> <span class="nav-text">2.3.3 Binder</span></a></li></ol></div>
             
 
           </div>
@@ -842,9 +822,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://gaofeng77.cn/2017/07/25/how-to-get-hexo/';
-          this.page.identifier = '2017/07/25/how-to-get-hexo/';
-          this.page.title = 'GitHub + Hexo搭建个人博客';
+          this.page.url = 'http://gaofeng77.cn/2017/07/26/hello-world/';
+          this.page.identifier = '2017/07/26/hello-world/';
+          this.page.title = 'Android中的IPC机制';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://gaofeng.disqus.com/embed.js';
