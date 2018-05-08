@@ -1,6 +1,6 @@
-﻿# Android 性能优化
+# Android 性能优化
 
-
+<!--more-->
 
 ---
 
@@ -112,7 +112,7 @@ public class Singleton {
  
  
  
-在此输入正文
+
 
 
 
