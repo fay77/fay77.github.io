@@ -5,9 +5,9 @@ tags:
 ---
 
 # 前言
-
-很早就有搭建博客的想法，最近终于有时间，去网上去搜相关教程，结果各种坑，决定写一篇。
 <!--more-->
+很早就有搭建博客的想法，最近终于有时间，去网上去搜相关教程，结果各种坑，决定写一篇。
+
 <img src="http://i.imgur.com/lgL0TVv.jpg" style="zoom:10%"/>
 
 假设你已经拥有了GitHub以及ssh认证等，去gitHub新建一个仓库，仓库名必须为  `yourusername.github.io`

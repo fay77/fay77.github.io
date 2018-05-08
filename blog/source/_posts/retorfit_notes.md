@@ -5,10 +5,11 @@ tags:
 ---
 
 ### Retrofit是如何通过注解来设置okhttp的配置的呢
+<!--more-->
 Retrofit通过注解的方式来配置http请求，即使不用okhttp改用httpClient上层也不需要去修改。
 
 带着多种疑问去看源码
-<!--more-->
+
 
 
 ``` 

@@ -4,11 +4,12 @@ date: 2017-07-31 13:32:54
 tags:
 ---
 # 前言
+<!--more-->
 之前学了一段时间的RxJava，由于项目中没用到过，回头看居然又忘了，索性今天再去捋一遍吧。
 注：只记录学习笔记，详细的不赘述。
 
 先贴上个人觉得RxJava讲的最好的一个系列： [http://www.jianshu.com/p/464fa025229e](http://www.jianshu.com/p/464fa025229e)
-<!--more-->
+
 ### ObservableEmitter
  ObservableEmitter 发射器，可以发出`onNext(T value)`、`onComplete()`和`onError(Throwable error)`必须遵循的规则：
 > 
