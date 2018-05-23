@@ -90,6 +90,12 @@ links:
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
+# hexo sitemap网站地图
+sitemap:
+    path: sitemap.xml
+baidusitemap:
+    path: baidusitemap.xml
+
 deploy: 
   type: git
   repo: git@github.com:fay77/fay77.github.io.git

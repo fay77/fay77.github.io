@@ -1,7 +1,7 @@
 ---
 title: Android中的IPC机制
 ---
-<img src="http://i.imgur.com/gcTmPam.jpg" style="zoom:40%"/>
+
 <!--more-->
 
 ## 1.IPC简介  

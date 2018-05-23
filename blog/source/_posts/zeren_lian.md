@@ -3,10 +3,10 @@ title: Okhttp源码应用到的责任链模式
 date: 2018-02-27 15:32:54
 tags:
 ---
-
+<!--more-->
 
 # 前言
-<!--more-->
+
 最近在看`OkHttp`源码，在整个`OkHttp`中最重要也是最核心的就是拦截器了，简单看拦截器似乎就是一个个实现`Interceptor`接口的类，再分别在类中实现相应的逻辑，直到我看到下面的代码
 
     	private Response getResponseWithInterceptorChain() throws IOException {

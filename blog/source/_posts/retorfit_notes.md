@@ -3,9 +3,9 @@ title: Retrofit学习分析
 date: 2017-07-31 13:32:54
 tags:
 ---
-
-### Retrofit是如何通过注解来设置okhttp的配置的呢
 <!--more-->
+### Retrofit是如何通过注解来设置okhttp的配置的呢
+
 Retrofit通过注解的方式来配置http请求，即使不用okhttp改用httpClient上层也不需要去修改。
 
 带着多种疑问去看源码
